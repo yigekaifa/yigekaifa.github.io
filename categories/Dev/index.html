@@ -1,3 +1,247 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="baidu-site-verification" content="1EB8XoOl0C"><meta name="google-site-verification" content="K7thEgdLm0UfRWJ5MGdF7sCcjClSzAlxFLPv2Oz5CGM"><title> 一个开发</title><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="一个开发的自留地，虽然我不经常写什么东西，但是只是做个记录用"><meta name="keywords"><meta name="author" content="一个开发"><link rel="short icon" href="/logo.png"><link rel="stylesheet" href="/css/bubuzou.css"><link rel="search" type="application/opensearchdescription+xml" href="https://yigekaifa.com/atom.xml" title="一个开发"><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="一个开发" type="application/atom+xml">
-</head><body><header><div class="header row"> <ul id="nav_list" class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" data-hover="首页" class="nav-list-link">首页</a></li><li class="nav-list-item"><a href="/archives/" target="_self" data-hover="归档" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="/about/" target="_self" data-hover="关于" class="nav-list-link">关于</a></li></ul><div id="nav_btn" class="nav-btn"><span></span><span></span><span></span></div></div></header><div class="row scroll-con"><section class="container"><!-- for archive page--><div class="archive"><h2 class="archive-year">2020</h2><div class="post-item"><div class="post-info">03-11</div><a href="/edittext-with-clear-icon/" class="post-title-link">自带清除内容功能的EditText</a></div><div class="post-item"><div class="post-info">03-10</div><a href="/listen-all-edittext-in-your-layout/" class="post-title-link">监听布局内所有的EditText</a></div><div class="post-item"><div class="post-info">03-10</div><a href="/startwithpop-close-both-fragment/" class="post-title-link">startWithPop()出现两个Fragment都退出的情况</a></div><div class="post-item"><div class="post-info">03-10</div><a href="/some-changes-for-tablayout/" class="post-title-link">TabLayout的简单修改</a></div></div><div class="right-container"><div class="widget"><div class="category"><h4>分类归档</h4><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Dev/">Dev</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Note/">Note</a><span class="category-list-count">2</span></li></ul></div></div><div class="widget"><div class="tagcloud"><h4>标签云</h4><a href="/tags/Custom/" style="font-size: 10px;">Custom</a> <a href="/tags/CustomView/" style="font-size: 10px;">CustomView</a> <a href="/tags/Edittext/" style="font-size: 20px;">Edittext</a> <a href="/tags/Fragment/" style="font-size: 10px;">Fragment</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/PowerShell/" style="font-size: 10px;">PowerShell</a> <a href="/tags/Script/" style="font-size: 10px;">Script</a> <a href="/tags/TabLayout/" style="font-size: 10px;">TabLayout</a> <a href="/tags/ViewGroup/" style="font-size: 10px;">ViewGroup</a> <a href="/tags/cmd/" style="font-size: 10px;">cmd</a> <a href="/tags/custom/" style="font-size: 10px;">custom</a> <a href="/tags/startWithPop/" style="font-size: 10px;">startWithPop</a> <a href="/tags/widget/" style="font-size: 10px;">widget</a></div></div><div class="widget"><div class="recent"><h4>最近文章</h4><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/hello-world/">Hello World</a></li><li class="post-list-item"><a class="post-list-link" href="/script-cant-run-on-powershell/">PowerShell禁止执行脚本的解决方法</a></li><li class="post-list-item"><a class="post-list-link" href="/dd-cmd-on-linux/">Linux下DD命令进度查看</a></li><li class="post-list-item"><a class="post-list-link" href="/edittext-with-clear-icon/">自带清除内容功能的EditText</a></li><li class="post-list-item"><a class="post-list-link" href="/listen-all-edittext-in-your-layout/">监听布局内所有的EditText</a></li></ul></div></div></div></section></div><div class="right-menu"></div><div class="blog-overlay"></div><footer class="row"><div class="footer-con"><div class="paginator"></div><div class="copyright"><p>© 2020 <a target="_blank">一个开发</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> <br> and <a href="https://github.com/Bulandent/hexo-theme-bubuzou" target="_blank">hexo-theme-bubuzou</a></p><p> <span style="padding-right: 6px;">闽ICP备16007301号-2</span></p></div><div class="totop"><i></i></div></div></footer><script async src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><script src="/scripts/jquery-1.8.2.min.js"></script><script src="/scripts/ar-anchor.js"></script><script src="/scripts/main.js"></script></body></html>
+<!DOCTYPE html>
+          <head>
+        <meta charset="utf-8">
+            
+            <title>
+                分类: Dev | 一个开发
+            </title>
+            <meta content="width=device-width, initial-scale=1" name="viewport">
+            <meta name="theme-color" content="#4184f3">
+            
+            
+            <link href="logo.png" rel="icon"/>
+            
+
+            
+<link rel="stylesheet" href="/css/highlight.light.css">
+
+            
+<link rel="stylesheet" href="/css/prism-customize.css">
+
+            
+<link rel="stylesheet" href="/css/nav-icon.css">
+
+            
+<link rel="stylesheet" href="/css/waves.min.css">
+
+            
+<link rel="stylesheet" href="/css/jquery.tocify.css">
+
+            
+<link rel="stylesheet" href="/css/main.css">
+
+            
+<link rel="stylesheet" href="/css/nav-indicator.css">
+
+            
+  
+  <!-- 百度统计 -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?0fbeadde1a30b2ff72b6885bc3123083";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+
+  
+            </meta>
+        </meta>
+    <meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="一个开发" type="application/atom+xml">
+</head>
+
+    <body>
+        <header>
+            <!-- cover image or sth. -->
+        </header>
+        <div id="main" class="m-scene">
+            
+<div class="nav-wrapper">
+
+    <div class="container">
+        <nav>
+            <div class="logo wave">
+                <a href="/" id="logo">
+                    一个开发
+                </a>
+            </div>
+            <div class="nav-toggle-icon" >
+                <div class="material-hamburger">
+                    <span>
+                    </span>
+                    <span>
+                    </span>
+                    <span>
+                    </span>
+                </div>
+            </div>
+            <div class="menu-wrapper">
+                <div class="nav-indicator">
+                </div>
+                <ul class="menus">
+                    
+                     
+                        <li class="">
+                            <a class="wave " href="/">
+                                首页
+                            </a>
+                        </li>
+                     
+                        <li class="">
+                            <a class="wave " href="/archives">
+                                归档
+                            </a>
+                        </li>
+                     
+                        <li class="">
+                            <a class="wave " href="/about">
+                                关于
+                            </a>
+                        </li>
+                     
+                    
+                   
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
+            <div class="container content">
+                <div class="scene_element scene_element--fadein">
+                    <div class="row">
+    <div class="main">
+        <article class="title-list">
+            
+                <h3>
+                    Dev
+                </h3>
+            
+            
+            <section>
+                <a href="/edittext-with-clear-icon/">
+                    自带清除内容功能的EditText
+                </a>
+                <time class="post-date" datetime="2020-03-10T18:23:58.000Z">
+                    2020-03-11
+                </time>
+            </section>
+            
+            <section>
+                <a href="/listen-all-edittext-in-your-layout/">
+                    监听布局内所有的EditText
+                </a>
+                <time class="post-date" datetime="2020-03-10T15:49:23.000Z">
+                    2020-03-10
+                </time>
+            </section>
+            
+            <section>
+                <a href="/startwithpop-close-both-fragment/">
+                    startWithPop()出现两个Fragment都退出的情况
+                </a>
+                <time class="post-date" datetime="2020-03-10T15:37:18.000Z">
+                    2020-03-10
+                </time>
+            </section>
+            
+            <section>
+                <a href="/some-changes-for-tablayout/">
+                    TabLayout的简单修改
+                </a>
+                <time class="post-date" datetime="2020-03-10T15:11:19.000Z">
+                    2020-03-10
+                </time>
+            </section>
+            
+        </article>
+        
+  
+    </div>
+    
+    <aside>
+        
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/script-cant-run-on-powershell/">PowerShell禁止执行脚本的解决方法</a>
+          </li>
+        
+          <li>
+            <a href="/dd-cmd-on-linux/">Linux下DD命令进度查看</a>
+          </li>
+        
+          <li>
+            <a href="/edittext-with-clear-icon/">自带清除内容功能的EditText</a>
+          </li>
+        
+          <li>
+            <a href="/listen-all-edittext-in-your-layout/">监听布局内所有的EditText</a>
+          </li>
+        
+          <li>
+            <a href="/startwithpop-close-both-fragment/">startWithPop()出现两个Fragment都退出的情况</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+    
+  <section class="widget-wrap">
+    <h3 class="widget-title">链接</h3>
+    <div class="widget">
+	    <ul >
+	        
+	        <li>
+	            <a href="https://twitter.com/yigekaifa" target="_blank" rel="noopener" title="推特">
+	                Twitter
+	            </a>
+	        </li>
+	        
+	    </ul>
+    </div>
+  </section>
+
+
+
+
+    </aside>
+    
+</div>
+
+
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+    <p>由<a href="http://hexo.io/" target="_blank">Hexo</a>强力驱动，搭载<a href="https://github.com/wayou/hexo-theme-gstyle" target="_blank" rel="noopener">gstyle</a>主题</p>
+    <p>
+        &copy; 2020 一个开发
+    </p>
+</footer>
+
+<script src="/lib/jquery.js"></script>
+
+
+<script src="/lib/waves.js"></script>
+
+
+<script src="/lib/jquery-ui.js"></script>
+
+
+<script src="/lib/jquery.tocify.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+    </body>
+</html>

@@ -1,50 +1,212 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="baidu-site-verification" content="1EB8XoOl0C"><meta name="google-site-verification" content="K7thEgdLm0UfRWJ5MGdF7sCcjClSzAlxFLPv2Oz5CGM"><title> Android中几种定位方式的粗解 · 一个开发</title><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Android中几种定位方式的粗解 - 一个开发"><meta name="keywords"><meta name="author" content="一个开发"><link rel="short icon" href="/logo.png"><link rel="stylesheet" href="/css/bubuzou.css"><link rel="search" type="application/opensearchdescription+xml" href="https://yigekaifa.com/atom.xml" title="一个开发"><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="一个开发" type="application/atom+xml">
-</head><body><header><div class="header row"> <ul id="nav_list" class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" data-hover="首页" class="nav-list-link">首页</a></li><li class="nav-list-item"><a href="/archives/" target="_self" data-hover="归档" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="/about/" target="_self" data-hover="关于" class="nav-list-link">关于</a></li></ul><div id="nav_btn" class="nav-btn"><span></span><span></span><span></span></div></div></header><div class="row scroll-con"><section class="container"><!-- for archive page--><div id="postAr" class="post"><article class="post-block"><h1 class="post-title">Android中几种定位方式的粗解</h1><div class="post-info">2020-03-10</div><div class="post-content"><p>之前朋友问我Tiktok为什么禁用了定位，开启了全局代理，还是可以获取到位置。当时想法只有一个：基站定位。我让他在设置里关掉移动服务（关闭手机卡）之后，确实可以正常使用了。</p>
+<!DOCTYPE html>
+          <head>
+        <meta charset="utf-8">
+            
+            <title>
+                Android中几种定位方式的粗解 | 一个开发
+            </title>
+            <meta content="width=device-width, initial-scale=1" name="viewport">
+            <meta name="theme-color" content="#4184f3">
+            
+            
+            <link href="logo.png" rel="icon"/>
+            
+
+            
+<link rel="stylesheet" href="/css/highlight.light.css">
+
+            
+<link rel="stylesheet" href="/css/prism-customize.css">
+
+            
+<link rel="stylesheet" href="/css/nav-icon.css">
+
+            
+<link rel="stylesheet" href="/css/waves.min.css">
+
+            
+<link rel="stylesheet" href="/css/jquery.tocify.css">
+
+            
+<link rel="stylesheet" href="/css/main.css">
+
+            
+<link rel="stylesheet" href="/css/nav-indicator.css">
+
+            
+  
+  <!-- 百度统计 -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?0fbeadde1a30b2ff72b6885bc3123083";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+
+  
+            </meta>
+        </meta>
+    <meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="一个开发" type="application/atom+xml">
+</head>
+
+    <body>
+        <header>
+            <!-- cover image or sth. -->
+        </header>
+        <div id="main" class="m-scene">
+            
+<div class="nav-wrapper">
+
+    <div class="container">
+        <nav>
+            <div class="logo wave">
+                <a href="/" id="logo">
+                    一个开发
+                </a>
+            </div>
+            <div class="nav-toggle-icon" >
+                <div class="material-hamburger">
+                    <span>
+                    </span>
+                    <span>
+                    </span>
+                    <span>
+                    </span>
+                </div>
+            </div>
+            <div class="menu-wrapper">
+                <div class="nav-indicator">
+                </div>
+                <ul class="menus">
+                    
+                     
+                        <li>
+                            <a class="wave " href="/">
+                                首页
+                            </a>
+                        </li>
+                     
+                        <li>
+                            <a class="wave " href="/archives">
+                                归档
+                            </a>
+                        </li>
+                     
+                        <li>
+                            <a class="wave " href="/about">
+                                关于
+                            </a>
+                        </li>
+                     
+                    
+                   
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
+            <div class="container content">
+                <div class="scene_element scene_element--fadein">
+                    <div class="row">
+    <div class="main">
+        <article>
+          
+          <header class="post-header">
+          
+          </header>
+          <h1 class="post-title">Android中几种定位方式的粗解</h1>
+
+          <section class="post-info">
+            <span class="post-date">2020/03/10</span>
+            
+            
+          </section>
+
+          <section class="post-content">
+            <p>之前朋友问我Tiktok为什么禁用了定位，开启了全局代理，还是可以获取到位置。当时想法只有一个：基站定位。我让他在设置里关掉移动服务（关闭手机卡）之后，确实可以正常使用了。</p>
 <p>这里简单说一下Android中集中定位方式。</p>
 <a id="more"></a>
 
 <blockquote>
 <p>这里是在Android10添加的新权限，在后台获取位置：<a href="https://developer.android.com/reference/android/Manifest.permission.html#ACCESS_BACKGROUND_LOCATION" target="_blank" rel="noopener">https://developer.android.com/reference/android/Manifest.permission.html#ACCESS_BACKGROUND_LOCATION</a></p>
 </blockquote>
-<h2 id="1-GPS"><a href="#1-GPS" class="headerlink" title="1. GPS"></a>1. GPS</h2><p>权限（注意版本变化）：</p>
-<pre><code class="xml">&lt;uses-permission android:name=&quot;android.permission.ACCESS_FINE_LOCATION&quot;/&gt;
-&lt;uses-permission android:name=&quot;android.permission.ACCESS_COARSE_LOCATION&quot;/&gt;</code></pre>
+<h2 id="1-GPS"><a href="/some-way-to-get-location/#1-GPS" class="headerlink" title="1. GPS"></a>1. GPS</h2><p>权限（注意版本变化）：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.ACCESS_FINE_LOCATION"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.ACCESS_COARSE_LOCATION"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
 <p>具体定位代码</p>
-<pre><code class="java">var locManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-var loc = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-if(loc != null){
-    Log.e(&quot;gpslocation&quot;, loc.toString())
-    toast(loc.toString())
-}
-locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0F, object : LocationListener{
-    override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> locManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager</span><br><span class="line"><span class="keyword">var</span> loc = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)</span><br><span class="line"><span class="keyword">if</span>(loc != <span class="keyword">null</span>)&#123;</span><br><span class="line">    Log.e(<span class="string">"gpslocation"</span>, loc.toString())</span><br><span class="line">    toast(loc.toString())</span><br><span class="line">&#125;</span><br><span class="line">locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, <span class="number">0</span>, <span class="number">0F</span>, object : LocationListener&#123;</span><br><span class="line">    <span class="function">override fun <span class="title">onStatusChanged</span><span class="params">(provider: String?, status: Int, extras: Bundle?)</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function">override fun <span class="title">onProviderEnabled</span><span class="params">(provider: String?)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function">override fun <span class="title">onProviderDisabled</span><span class="params">(provider: String?)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function">override fun <span class="title">onLocationChanged</span><span class="params">(location: Location?)</span> </span>&#123;</span><br><span class="line">        Log.e(<span class="string">"gpslocation"</span>, location.toString())</span><br><span class="line">        toast(location.toString())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
-    }
+<h3 id="2-Network获取位置"><a href="/some-way-to-get-location/#2-Network获取位置" class="headerlink" title="2. Network获取位置"></a>2. Network获取位置</h3><p>与GPS定位相同，代码都一样。只是申请权限不同。并且在室内时，GPS需要一定时间来定位，而Network在网络状况不好时不可用。</p>
+<h3 id="3-IP"><a href="/some-way-to-get-location/#3-IP" class="headerlink" title="3. IP"></a>3. IP</h3><p>APP通过对当前IP的分析，可以得到你大致的位置。一般不采用这种方案，IP太容易被伪装。</p>
+<h3 id="4-WiFi（WLAN）定位"><a href="/some-way-to-get-location/#4-WiFi（WLAN）定位" class="headerlink" title="4. WiFi（WLAN）定位"></a>4. WiFi（WLAN）定位</h3><p>需要权限：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.ACCESS_WIFI_STATE"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
 
-    override fun onProviderEnabled(provider: String?) {
-    }
-
-    override fun onProviderDisabled(provider: String?) {
-    }
-
-    override fun onLocationChanged(location: Location?) {
-        Log.e(&quot;gpslocation&quot;, location.toString())
-        toast(location.toString())
-    }
-})</code></pre>
-<h3 id="2-Network获取位置"><a href="#2-Network获取位置" class="headerlink" title="2. Network获取位置"></a>2. Network获取位置</h3><p>与GPS定位相同，代码都一样。只是申请权限不同。并且在室内时，GPS需要一定时间来定位，而Network在网络状况不好时不可用。</p>
-<h3 id="3-IP"><a href="#3-IP" class="headerlink" title="3. IP"></a>3. IP</h3><p>APP通过对当前IP的分析，可以得到你大致的位置。一般不采用这种方案，IP太容易被伪装。</p>
-<h3 id="4-WiFi（WLAN）定位"><a href="#4-WiFi（WLAN）定位" class="headerlink" title="4. WiFi（WLAN）定位"></a>4. WiFi（WLAN）定位</h3><p>需要权限：</p>
-<pre><code class="xml">&lt;uses-permission android:name=&quot;android.permission.ACCESS_WIFI_STATE&quot;/&gt;</code></pre>
 <p>这个也比较简单，就是过程就是拿到当前的WiFi信息，然后通过mac地址（BSSID）进行查询。具体查询的接口可以去聚合数据搜索一下，这里不再多说。</p>
-<h3 id="5-基站定位"><a href="#5-基站定位" class="headerlink" title="5. 基站定位"></a>5. 基站定位</h3><p>这个要稍微说一下。在你关闭了所有定位传感器之后，如果你的手机还是处于有服务的状态下，就可以进行大概定位。通过TelephonyManager获取当前手机信号的基站信息。可以定位到大概区以下的位置。</p>
-<pre><code>MCC，Mobile Country Code，移动国家代码（中国的为460）
-MNC，Mobile Network Code，移动网络号码（中国移动为00，中国联通为01）
-LAC，Location Area Code，位置区域码
-CID，Cell Identity，基站编号，是个16位的数据（范围是0到65535）</code></pre><p>看似类型繁多，但是实际用起来用处不是很多。建议大家还是用第三方定位库吧，简单精准还好用。</p>
+<h3 id="5-基站定位"><a href="/some-way-to-get-location/#5-基站定位" class="headerlink" title="5. 基站定位"></a>5. 基站定位</h3><p>这个要稍微说一下。在你关闭了所有定位传感器之后，如果你的手机还是处于有服务的状态下，就可以进行大概定位。通过TelephonyManager获取当前手机信号的基站信息。可以定位到大概区以下的位置。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">MCC，Mobile Country Code，移动国家代码（中国的为460）</span><br><span class="line">MNC，Mobile Network Code，移动网络号码（中国移动为00，中国联通为01）</span><br><span class="line">LAC，Location Area Code，位置区域码</span><br><span class="line">CID，Cell Identity，基站编号，是个16位的数据（范围是0到65535）</span><br></pre></td></tr></table></figure>
+
+<p>看似类型繁多，但是实际用起来用处不是很多。建议大家还是用第三方定位库吧，简单精准还好用。</p>
 <p>参考文章</p>
 <blockquote>
 <p><a href="https://developer.android.com/guide/topics/location/strategies" target="_blank" rel="noopener">https://developer.android.com/guide/topics/location/strategies</a></p>
 </blockquote>
-</div></article></div><div class="right-container"><div class="widget"><div id="arAnchorBar"></div></div></div></section></div><div class="right-menu"></div><div class="blog-overlay"></div><footer class="row"><div class="footer-con"><div class="paginator"><a href="/some-changes-for-tablayout/" title="TabLayout的简单修改" class="prev">PREV</a></div><div class="copyright"><p>© 2020 <a target="_blank">一个开发</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> <br> and <a href="https://github.com/Bulandent/hexo-theme-bubuzou" target="_blank">hexo-theme-bubuzou</a></p><p> <span style="padding-right: 6px;">闽ICP备16007301号-2</span></p></div><div class="totop"><i></i></div></div></footer><script async src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><script src="/scripts/jquery-1.8.2.min.js"></script><script src="/scripts/ar-anchor.js"></script><script src="/scripts/main.js"></script></body></html>
+
+          </section>
+        </article>
+        
+
+       
+        <div class="pager">
+          
+            <a class="post-prev pager-item" href="/some-changes-for-tablayout/" >
+              <strong class="article-nav-caption">上一篇</strong>
+              <p class="post-nav-title">TabLayout的简单修改</p>
+            </a>
+          
+          
+        </div>
+        
+
+         <!-- comments -->
+        <div class="comment-section">
+  
+    
+
+
+</div>
+
+    </div>
+    
+</div>
+
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+    <p>由<a href="http://hexo.io/" target="_blank">Hexo</a>强力驱动，搭载<a href="https://github.com/wayou/hexo-theme-gstyle" target="_blank" rel="noopener">gstyle</a>主题</p>
+    <p>
+        &copy; 2020 一个开发
+    </p>
+</footer>
+
+<script src="/lib/jquery.js"></script>
+
+
+<script src="/lib/waves.js"></script>
+
+
+<script src="/lib/jquery-ui.js"></script>
+
+
+<script src="/lib/jquery.tocify.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+    </body>
+</html>

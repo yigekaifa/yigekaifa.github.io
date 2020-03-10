@@ -1,12 +1,463 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="baidu-site-verification" content="1EB8XoOl0C"><meta name="google-site-verification" content="K7thEgdLm0UfRWJ5MGdF7sCcjClSzAlxFLPv2Oz5CGM"><title> 一个开发</title><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="一个开发的自留地，虽然我不经常写什么东西，但是只是做个记录用"><meta name="keywords"><meta name="author" content="一个开发"><link rel="short icon" href="/logo.png"><link rel="stylesheet" href="/css/bubuzou.css"><link rel="search" type="application/opensearchdescription+xml" href="https://yigekaifa.com/atom.xml" title="一个开发"><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="一个开发" type="application/atom+xml">
-</head><body><header><div class="header row"> <ul id="nav_list" class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" data-hover="首页" class="nav-list-link">首页</a></li><li class="nav-list-item"><a href="/archives/" target="_self" data-hover="归档" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="/about/" target="_self" data-hover="关于" class="nav-list-link">关于</a></li></ul><div id="nav_btn" class="nav-btn"><span></span><span></span><span></span></div></div></header><div class="row scroll-con"><section class="container"><!-- for archive page--><ul class="home post-list"><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/hello-world/" class="post-title-link">Hello World</a></h2><div class="post-info">2020-03-11</div><div class="post-content"></div><a href="/hello-world/" class="read-more">...more</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/script-cant-run-on-powershell/" class="post-title-link">PowerShell禁止执行脚本的解决方法</a></h2><div class="post-info">2020-03-11</div><div class="post-content"><p>如果出现类似下面的提示：</p>
-<pre><code class="bash">无法加载文件 ******.xxx，因为在此系统中禁止执行脚本。有关详细信息，请参阅 &quot;get-help about_signing&quot;。
-所在位置 行:1 字符: 17
-</code></pre>
-<p>解决方法：</p></div><a href="/script-cant-run-on-powershell/" class="read-more">...more</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/dd-cmd-on-linux/" class="post-title-link">Linux下DD命令进度查看</a></h2><div class="post-info">2020-03-11</div><div class="post-content"><p>在Ubuntu 系统上执行如下命令</p>
-<pre><code class="shell"> dd if=/img.iso of=/dev/mydevice bs=10M count=100000</code></pre></div><a href="/dd-cmd-on-linux/" class="read-more">...more</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/edittext-with-clear-icon/" class="post-title-link">自带清除内容功能的EditText</a></h2><div class="post-info">2020-03-11</div><div class="post-content"><p>出发需求：</p>
-<ol>
-<li>减少手写清除EditText内容的代码</li>
-<li>xml里面写的话，点击清除按钮会失去焦点，然后软键盘消失，需要重复点击输入框才可以继续输入</div><a href="/edittext-with-clear-icon/" class="read-more">...more</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/listen-all-edittext-in-your-layout/" class="post-title-link">监听布局内所有的EditText</a></h2><div class="post-info">2020-03-10</div><div class="post-content"><p>当出现布局内有N个输入框且需要同步监听，例如你需要监听用户输入所有内容之后才可以点击下一步的控件，你可以试试下面这个控件。</p></div><a href="/listen-all-edittext-in-your-layout/" class="read-more">...more</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/startwithpop-close-both-fragment/" class="post-title-link">startWithPop()出现两个Fragment都退出的情况</a></h2><div class="post-info">2020-03-10</div><div class="post-content"><p>有时候<code>startWithPop()</code>会出现两个<code>Fragment</code>都出栈的情况，一般当前<code>fragment</code>是RootView的时候会出现这个情况。</p></div><a href="/startwithpop-close-both-fragment/" class="read-more">...more</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/some-changes-for-tablayout/" class="post-title-link">TabLayout的简单修改</a></h2><div class="post-info">2020-03-10</div><div class="post-content"><p>设计稿上的tab布局我用了design库的tablayout，根据设计上的图来看，选中的tab要是粗体，下方横线等宽于字体。</p></div><a href="/some-changes-for-tablayout/" class="read-more">...more</a></article></li><li class="post-list-item"><article class="post-block"><h2 class="post-title"><a href="/some-way-to-get-location/" class="post-title-link">Android中几种定位方式的粗解</a></h2><div class="post-info">2020-03-10</div><div class="post-content"><p>之前朋友问我Tiktok为什么禁用了定位，开启了全局代理，还是可以获取到位置。当时想法只有一个：基站定位。我让他在设置里关掉移动服务（关闭手机卡）之后，确实可以正常使用了。</p>
-<p>这里简单说一下Android中集中定位方式。</p></div><a href="/some-way-to-get-location/" class="read-more">...more</a></article></li></ul><div class="right-container"><div class="widget"><div class="category"><h4>分类归档</h4><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Dev/">Dev</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Note/">Note</a><span class="category-list-count">2</span></li></ul></div></div><div class="widget"><div class="tagcloud"><h4>标签云</h4><a href="/tags/Custom/" style="font-size: 10px;">Custom</a> <a href="/tags/CustomView/" style="font-size: 10px;">CustomView</a> <a href="/tags/Edittext/" style="font-size: 20px;">Edittext</a> <a href="/tags/Fragment/" style="font-size: 10px;">Fragment</a> <a href="/tags/Linux/" style="font-size: 10px;">Linux</a> <a href="/tags/PowerShell/" style="font-size: 10px;">PowerShell</a> <a href="/tags/Script/" style="font-size: 10px;">Script</a> <a href="/tags/TabLayout/" style="font-size: 10px;">TabLayout</a> <a href="/tags/ViewGroup/" style="font-size: 10px;">ViewGroup</a> <a href="/tags/cmd/" style="font-size: 10px;">cmd</a> <a href="/tags/custom/" style="font-size: 10px;">custom</a> <a href="/tags/startWithPop/" style="font-size: 10px;">startWithPop</a> <a href="/tags/widget/" style="font-size: 10px;">widget</a></div></div><div class="widget"><div class="recent"><h4>最近文章</h4><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/hello-world/">Hello World</a></li><li class="post-list-item"><a class="post-list-link" href="/script-cant-run-on-powershell/">PowerShell禁止执行脚本的解决方法</a></li><li class="post-list-item"><a class="post-list-link" href="/dd-cmd-on-linux/">Linux下DD命令进度查看</a></li><li class="post-list-item"><a class="post-list-link" href="/edittext-with-clear-icon/">自带清除内容功能的EditText</a></li><li class="post-list-item"><a class="post-list-link" href="/listen-all-edittext-in-your-layout/">监听布局内所有的EditText</a></li></ul></div></div></div></section></div><div class="right-menu"></div><div class="blog-overlay"></div><footer class="row"><div class="footer-con"><div class="paginator"></div><div class="copyright"><p>© 2020 <a target="_blank">一个开发</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> <br> and <a href="https://github.com/Bulandent/hexo-theme-bubuzou" target="_blank">hexo-theme-bubuzou</a></p><p> <span style="padding-right: 6px;">闽ICP备16007301号-2</span></p></div><div class="totop"><i></i></div></div></footer><script async src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><script src="/scripts/jquery-1.8.2.min.js"></script><script src="/scripts/ar-anchor.js"></script><script src="/scripts/main.js"></script></body></html>
+<!DOCTYPE html>
+          <head>
+        <meta charset="utf-8">
+            
+            <title>
+                一个开发
+            </title>
+            <meta content="width=device-width, initial-scale=1" name="viewport">
+            <meta name="theme-color" content="#4184f3">
+            
+            
+            <link href="logo.png" rel="icon"/>
+            
+
+            
+<link rel="stylesheet" href="/css/highlight.light.css">
+
+            
+<link rel="stylesheet" href="/css/prism-customize.css">
+
+            
+<link rel="stylesheet" href="/css/nav-icon.css">
+
+            
+<link rel="stylesheet" href="/css/waves.min.css">
+
+            
+<link rel="stylesheet" href="/css/jquery.tocify.css">
+
+            
+<link rel="stylesheet" href="/css/main.css">
+
+            
+<link rel="stylesheet" href="/css/nav-indicator.css">
+
+            
+  
+  <!-- 百度统计 -->
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?0fbeadde1a30b2ff72b6885bc3123083";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+
+  
+            </meta>
+        </meta>
+    <meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="一个开发" type="application/atom+xml">
+</head>
+
+    <body>
+        <header>
+            <!-- cover image or sth. -->
+        </header>
+        <div id="main" class="m-scene">
+            
+<div class="nav-wrapper">
+
+    <div class="container">
+        <nav>
+            <div class="logo wave">
+                <a href="/" id="logo">
+                    一个开发
+                </a>
+            </div>
+            <div class="nav-toggle-icon" >
+                <div class="material-hamburger">
+                    <span>
+                    </span>
+                    <span>
+                    </span>
+                    <span>
+                    </span>
+                </div>
+            </div>
+            <div class="menu-wrapper">
+                <div class="nav-indicator">
+                </div>
+                <ul class="menus">
+                    
+                     
+                        <li class="">
+                            <a class="" href="/">
+                                首页
+                            </a>
+                        </li>
+                     
+                        <li class="">
+                            <a class="" href="/archives">
+                                归档
+                            </a>
+                        </li>
+                     
+                        <li class="">
+                            <a class="" href="/about">
+                                关于
+                            </a>
+                        </li>
+                     
+                    
+                   
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
+            <div class="container content">
+                <div class="scene_element scene_element--fadein">
+                     <div class="row">
+  <div class="main index">
+
+  
+    <article>
+      <a href="/script-cant-run-on-powershell/" >
+        
+          <header class="post-header">
+        
+          <h1 class="post-title">
+            <!-- <a href="/script-cant-run-on-powershell/" title="PowerShell禁止执行脚本的解决方法" >PowerShell禁止执行脚本的解决方法</a> -->
+            <span>PowerShell禁止执行脚本的解决方法</span>
+          </h1>
+        </header>
+      </a>
+
+       <section class="post-info">
+        <span class="post-date">2020/03/11</span>
+          
+          <span class="post-category">
+          -
+              <a class="post-category-link" href="/categories/Note/">Note</a>
+          </span>
+          
+          
+          <span class="post-tags">
+          -
+            <ul class="post-tag-list" itemprop="keywords"><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/PowerShell/" rel="tag">PowerShell</a></li><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/Script/" rel="tag">Script</a></li></ul>
+          </span>
+          
+        <!-- <span class="read-more btn"><a href="/script-cant-run-on-powershell/" >阅读</a></span> -->
+      </section>
+
+      <section class="post-abstract">
+        
+          如果出现类似下面的提示：
+无法加载文件 ******.xxx，因为在此系统中禁止执行脚本。有关详细信息，请参阅 "get-help about_signing"。所在位置 行:1 字符: 17
+
+解决方法：
+        
+      </section>
+      
+    </article>
+  
+    <article>
+      <a href="/dd-cmd-on-linux/" >
+        
+          <header class="post-header">
+        
+          <h1 class="post-title">
+            <!-- <a href="/dd-cmd-on-linux/" title="Linux下DD命令进度查看" >Linux下DD命令进度查看</a> -->
+            <span>Linux下DD命令进度查看</span>
+          </h1>
+        </header>
+      </a>
+
+       <section class="post-info">
+        <span class="post-date">2020/03/11</span>
+          
+          <span class="post-category">
+          -
+              <a class="post-category-link" href="/categories/Note/">Note</a>
+          </span>
+          
+          
+          <span class="post-tags">
+          -
+            <ul class="post-tag-list" itemprop="keywords"><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/cmd/" rel="tag">cmd</a></li></ul>
+          </span>
+          
+        <!-- <span class="read-more btn"><a href="/dd-cmd-on-linux/" >阅读</a></span> -->
+      </section>
+
+      <section class="post-abstract">
+        
+          在Ubuntu 系统上执行如下命令
+dd if=/img.iso of=/dev/mydevice bs=10M count=100000
+        
+      </section>
+      
+    </article>
+  
+    <article>
+      <a href="/edittext-with-clear-icon/" >
+        
+          <header class="post-header">
+        
+          <h1 class="post-title">
+            <!-- <a href="/edittext-with-clear-icon/" title="自带清除内容功能的EditText" >自带清除内容功能的EditText</a> -->
+            <span>自带清除内容功能的EditText</span>
+          </h1>
+        </header>
+      </a>
+
+       <section class="post-info">
+        <span class="post-date">2020/03/11</span>
+          
+          <span class="post-category">
+          -
+              <a class="post-category-link" href="/categories/Dev/">Dev</a>
+          </span>
+          
+          
+          <span class="post-tags">
+          -
+            <ul class="post-tag-list" itemprop="keywords"><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/Custom/" rel="tag">Custom</a></li><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/Edittext/" rel="tag">Edittext</a></li></ul>
+          </span>
+          
+        <!-- <span class="read-more btn"><a href="/edittext-with-clear-icon/" >阅读</a></span> -->
+      </section>
+
+      <section class="post-abstract">
+        
+          出发需求：
+
+减少手写清除EditText内容的代码
+xml里面写的话，点击清除按钮会失去焦点，然后软键盘消失，需要重复点击输入框才可以继续输入
+
+        
+      </section>
+      
+    </article>
+  
+    <article>
+      <a href="/listen-all-edittext-in-your-layout/" >
+        
+          <header class="post-header">
+        
+          <h1 class="post-title">
+            <!-- <a href="/listen-all-edittext-in-your-layout/" title="监听布局内所有的EditText" >监听布局内所有的EditText</a> -->
+            <span>监听布局内所有的EditText</span>
+          </h1>
+        </header>
+      </a>
+
+       <section class="post-info">
+        <span class="post-date">2020/03/10</span>
+          
+          <span class="post-category">
+          -
+              <a class="post-category-link" href="/categories/Dev/">Dev</a>
+          </span>
+          
+          
+          <span class="post-tags">
+          -
+            <ul class="post-tag-list" itemprop="keywords"><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/CustomView/" rel="tag">CustomView</a></li><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/Edittext/" rel="tag">Edittext</a></li><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/ViewGroup/" rel="tag">ViewGroup</a></li></ul>
+          </span>
+          
+        <!-- <span class="read-more btn"><a href="/listen-all-edittext-in-your-layout/" >阅读</a></span> -->
+      </section>
+
+      <section class="post-abstract">
+        
+          当出现布局内有N个输入框且需要同步监听，例如你需要监听用户输入所有内容之后才可以点击下一步的控件，你可以试试下面这个控件。
+        
+      </section>
+      
+    </article>
+  
+    <article>
+      <a href="/startwithpop-close-both-fragment/" >
+        
+          <header class="post-header">
+        
+          <h1 class="post-title">
+            <!-- <a href="/startwithpop-close-both-fragment/" title="startWithPop()出现两个Fragment都退出的情况" >startWithPop()出现两个Fragment都退出的情况</a> -->
+            <span>startWithPop()出现两个Fragment都退出的情况</span>
+          </h1>
+        </header>
+      </a>
+
+       <section class="post-info">
+        <span class="post-date">2020/03/10</span>
+          
+          <span class="post-category">
+          -
+              <a class="post-category-link" href="/categories/Dev/">Dev</a>
+          </span>
+          
+          
+          <span class="post-tags">
+          -
+            <ul class="post-tag-list" itemprop="keywords"><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/Fragment/" rel="tag">Fragment</a></li><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/startWithPop/" rel="tag">startWithPop</a></li></ul>
+          </span>
+          
+        <!-- <span class="read-more btn"><a href="/startwithpop-close-both-fragment/" >阅读</a></span> -->
+      </section>
+
+      <section class="post-abstract">
+        
+          有时候startWithPop()会出现两个Fragment都出栈的情况，一般当前fragment是RootView的时候会出现这个情况。
+        
+      </section>
+      
+    </article>
+  
+    <article>
+      <a href="/some-changes-for-tablayout/" >
+        
+          <header class="post-header">
+        
+          <h1 class="post-title">
+            <!-- <a href="/some-changes-for-tablayout/" title="TabLayout的简单修改" >TabLayout的简单修改</a> -->
+            <span>TabLayout的简单修改</span>
+          </h1>
+        </header>
+      </a>
+
+       <section class="post-info">
+        <span class="post-date">2020/03/10</span>
+          
+          <span class="post-category">
+          -
+              <a class="post-category-link" href="/categories/Dev/">Dev</a>
+          </span>
+          
+          
+          <span class="post-tags">
+          -
+            <ul class="post-tag-list" itemprop="keywords"><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/TabLayout/" rel="tag">TabLayout</a></li><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/custom/" rel="tag">custom</a></li><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/widget/" rel="tag">widget</a></li></ul>
+          </span>
+          
+        <!-- <span class="read-more btn"><a href="/some-changes-for-tablayout/" >阅读</a></span> -->
+      </section>
+
+      <section class="post-abstract">
+        
+          设计稿上的tab布局我用了design库的tablayout，根据设计上的图来看，选中的tab要是粗体，下方横线等宽于字体。
+        
+      </section>
+      
+    </article>
+  
+    <article>
+      <a href="/some-way-to-get-location/" >
+        
+          <header class="post-header">
+        
+          <h1 class="post-title">
+            <!-- <a href="/some-way-to-get-location/" title="Android中几种定位方式的粗解" >Android中几种定位方式的粗解</a> -->
+            <span>Android中几种定位方式的粗解</span>
+          </h1>
+        </header>
+      </a>
+
+       <section class="post-info">
+        <span class="post-date">2020/03/10</span>
+          
+          
+        <!-- <span class="read-more btn"><a href="/some-way-to-get-location/" >阅读</a></span> -->
+      </section>
+
+      <section class="post-abstract">
+        
+          之前朋友问我Tiktok为什么禁用了定位，开启了全局代理，还是可以获取到位置。当时想法只有一个：基站定位。我让他在设置里关掉移动服务（关闭手机卡）之后，确实可以正常使用了。
+这里简单说一下Android中集中定位方式。
+        
+      </section>
+      
+    </article>
+  
+  
+  
+  
+  </div>
+  
+    <aside>
+        
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/script-cant-run-on-powershell/">PowerShell禁止执行脚本的解决方法</a>
+          </li>
+        
+          <li>
+            <a href="/dd-cmd-on-linux/">Linux下DD命令进度查看</a>
+          </li>
+        
+          <li>
+            <a href="/edittext-with-clear-icon/">自带清除内容功能的EditText</a>
+          </li>
+        
+          <li>
+            <a href="/listen-all-edittext-in-your-layout/">监听布局内所有的EditText</a>
+          </li>
+        
+          <li>
+            <a href="/startwithpop-close-both-fragment/">startWithPop()出现两个Fragment都退出的情况</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+    
+  <section class="widget-wrap">
+    <h3 class="widget-title">链接</h3>
+    <div class="widget">
+	    <ul >
+	        
+	        <li>
+	            <a href="https://twitter.com/yigekaifa" target="_blank" rel="noopener" title="推特">
+	                Twitter
+	            </a>
+	        </li>
+	        
+	    </ul>
+    </div>
+  </section>
+
+
+
+
+    </aside>
+  
+</div>
+
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+    <p>由<a href="http://hexo.io/" target="_blank">Hexo</a>强力驱动，搭载<a href="https://github.com/wayou/hexo-theme-gstyle" target="_blank" rel="noopener">gstyle</a>主题</p>
+    <p>
+        &copy; 2020 一个开发
+    </p>
+</footer>
+
+<script src="/lib/jquery.js"></script>
+
+
+<script src="/lib/waves.js"></script>
+
+
+<script src="/lib/jquery-ui.js"></script>
+
+
+<script src="/lib/jquery.tocify.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+    </body>
+</html>
