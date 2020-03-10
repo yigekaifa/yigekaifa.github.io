@@ -1,0 +1,67 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="baidu-site-verification" content="1EB8XoOl0C"><meta name="google-site-verification" content="K7thEgdLm0UfRWJ5MGdF7sCcjClSzAlxFLPv2Oz5CGM"><title> 监听布局内所有的EditText · 一个开发</title><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="监听布局内所有的EditText - 一个开发"><meta name="keywords"><meta name="author" content="一个开发"><link rel="short icon" href="/logo.png"><link rel="stylesheet" href="/css/bubuzou.css"><link rel="search" type="application/opensearchdescription+xml" href="https://yigekaifa.com/atom.xml" title="一个开发"><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="一个开发" type="application/atom+xml">
+</head><body><header><div class="header row"> <ul id="nav_list" class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" data-hover="首页" class="nav-list-link">首页</a></li><li class="nav-list-item"><a href="/archives/" target="_self" data-hover="归档" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="/about/" target="_self" data-hover="关于" class="nav-list-link">关于</a></li></ul><div id="nav_btn" class="nav-btn"><span></span><span></span><span></span></div></div></header><div class="row scroll-con"><section class="container"><!-- for archive page--><div id="postAr" class="post"><article class="post-block"><h1 class="post-title">监听布局内所有的EditText</h1><div class="post-info">2020-03-10</div><div class="post-content"><p>当出现布局内有N个输入框且需要同步监听，例如你需要监听用户输入所有内容之后才可以点击下一步的控件，你可以试试下面这个控件。</p>
+<a id="more"></a>
+
+<h2 id="1-获取子view"><a href="#1-获取子view" class="headerlink" title="1. 获取子view"></a>1. 获取子view</h2><p>编历布局，看当前布局有几个<code>EditText</code>,然后去监听拿到<code>focus</code>的<code>view</code></p>
+<p>获取子<code>view</code>的方式：</p>
+<pre><code class="java">// 遍历viewGroup
+    public int traverseViewGroup(View view) {
+        int viewCount = 0;
+        if (null == view) {
+            return 0;
+        }
+        if (view instanceof ViewGroup) {
+            //遍历ViewGroup,是子view加1，是ViewGroup递归调用
+            for (int i = 0; i &lt; ((ViewGroup) view).getChildCount(); i++) {
+                View child = ((ViewGroup) view).getChildAt(i);
+                if (child instanceof ViewGroup) {
+                    viewCount += traverseViewGroup(((ViewGroup) view).getChildAt(i));
+                } else {
+                    viewCount++;
+                }
+            }
+        } else {
+            viewCount++;
+        }
+        return viewCount;
+    }</code></pre>
+<p>非递归方法获取子<code>view</code>：</p>
+<pre><code class="java"> // 遍历viewGroup
+    public int traverseViewGroup(View view) {
+        int viewCount = 0;
+        if (null == view) {
+            return 0;
+        }
+        if (view instanceof ViewGroup) {
+            ViewGroup viewGroup = (ViewGroup) view;
+            LinkedList&lt;ViewGroup&gt; linkedList = new LinkedList&lt;&gt;();
+            linkedList.add(viewGroup);
+            while (!linkedList.isEmpty()) {
+                //removeFirst()删除第一个元素，并返回该元素
+                ViewGroup current = linkedList.removeFirst();
+                viewCount++;
+                //遍历linkedList中第一个viewGroup中的子view
+                for (int i = 0; i &lt; current.getChildCount(); i++) {
+                    if (current.getChildAt(i) instanceof ViewGroup) {
+                        linkedList.addLast((ViewGroup) current.getChildAt(i));
+                    } else {
+                        viewCount++;
+                    }
+                }
+            }
+        } else {
+            viewCount++;
+        }
+        return viewCount;
+    }</code></pre>
+<p>获取到子<code>view</code>的时候，你需要判断这个子<code>view</code>是不是<code>EditText</code>，方法有两种：</p>
+<pre><code class="java">v.getClassName() == &quot;EditText&quot;</code></pre>
+<pre><code class="java">v instanceof Button</code></pre>
+<h2 id="2-拿到子view之后："><a href="#2-拿到子view之后：" class="headerlink" title="2. 拿到子view之后："></a>2. 拿到子view之后：</h2><p>方法1. 拿到子<code>view</code>之后，不需要每个都去监听（当然你也可以这么做），另外一种，判断在<code>viewgroup</code>中哪个子<code>view</code>获取到了焦点，然后给他添加监听，其他的移除监听。</p>
+<p>然后给设置的按钮去设置<code>enable</code></p>
+<p>方法2. LiveData监听数据变化，但是和上面的方式换汤不换药，代码量更多了一点。LiveData的具体使用可以参考： <a href="https://developer.android.google.cn/reference/android/arch/lifecycle/LiveData" target="_blank" rel="noopener">https://developer.android.google.cn/reference/android/arch/lifecycle/LiveData</a></p>
+<h3 id="需要完成的内容："><a href="#需要完成的内容：" class="headerlink" title="需要完成的内容："></a>需要完成的内容：</h3><ul>
+<li><input checked="" disabled="" type="checkbox"> 添加例外的参数，例如非必填的Edittext</li>
+</ul>
+</div></article></div><div class="right-container"><div class="widget"><div id="arAnchorBar"></div></div></div></section></div><div class="right-menu"></div><div class="blog-overlay"></div><footer class="row"><div class="footer-con"><div class="paginator"><a href="/edittext-with-clear-icon/" title="自带清除内容功能的EditText" class="prev">PREV</a><a href="/startwithpop-close-both-fragment/" title="startWithPop()出现两个Fragment都退出的情况" class="next">NEXT</a></div><div class="copyright"><p>© 2020 <a target="_blank">一个开发</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> <br> and <a href="https://github.com/Bulandent/hexo-theme-bubuzou" target="_blank">hexo-theme-bubuzou</a></p><p> <span style="padding-right: 6px;">闽ICP备16007301号-2</span></p></div><div class="totop"><i></i></div></div></footer><script async src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><script src="/scripts/jquery-1.8.2.min.js"></script><script src="/scripts/ar-anchor.js"></script><script src="/scripts/main.js"></script></body></html>

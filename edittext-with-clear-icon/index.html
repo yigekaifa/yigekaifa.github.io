@@ -1,0 +1,132 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="baidu-site-verification" content="1EB8XoOl0C"><meta name="google-site-verification" content="K7thEgdLm0UfRWJ5MGdF7sCcjClSzAlxFLPv2Oz5CGM"><title> 自带清除内容功能的EditText · 一个开发</title><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="自带清除内容功能的EditText - 一个开发"><meta name="keywords"><meta name="author" content="一个开发"><link rel="short icon" href="/logo.png"><link rel="stylesheet" href="/css/bubuzou.css"><link rel="search" type="application/opensearchdescription+xml" href="https://yigekaifa.com/atom.xml" title="一个开发"><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="一个开发" type="application/atom+xml">
+</head><body><header><div class="header row"> <ul id="nav_list" class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" data-hover="首页" class="nav-list-link">首页</a></li><li class="nav-list-item"><a href="/archives/" target="_self" data-hover="归档" class="nav-list-link">归档</a></li><li class="nav-list-item"><a href="/about/" target="_self" data-hover="关于" class="nav-list-link">关于</a></li></ul><div id="nav_btn" class="nav-btn"><span></span><span></span><span></span></div></div></header><div class="row scroll-con"><section class="container"><!-- for archive page--><div id="postAr" class="post"><article class="post-block"><h1 class="post-title">自带清除内容功能的EditText</h1><div class="post-info">2020-03-11</div><div class="post-content"><p>出发需求：</p>
+<ol>
+<li>减少手写清除EditText内容的代码</li>
+<li>xml里面写的话，点击清除按钮会失去焦点，然后软键盘消失，需要重复点击输入框才可以继续输入<a id="more"></a>
+<pre><code class="java"></code></pre>
+</li>
+</ol>
+<p>public class ClearEditText extends AppCompatEditText implements View.OnFocusChangeListener, View.OnTouchListener, TextWatcher {</p>
+<pre><code>private Drawable mClearTextIcon;
+private OnFocusChangeListener mOnFocusChangeListener;
+private OnTouchListener mOnTouchListener;
+private boolean isShowClearIcon;
+
+public ClearEditText(Context context) {
+    super(context);
+    init(context, null);
+}
+
+public ClearEditText(Context context, AttributeSet attrs) {
+    super(context, attrs);
+    init(context, attrs);
+}
+
+public ClearEditText(Context context, AttributeSet attrs, int defStyleAttr) {
+    super(context, attrs, defStyleAttr);
+    init(context, attrs);
+}
+
+private void init(Context context, AttributeSet attrs) {
+    mClearTextIcon = getCompoundDrawables()[2];
+    TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ClearEditText);
+    isShowClearIcon = typedArray.getBoolean(R.styleable.ClearEditText_isShowClearIcon, true);
+    if (mClearTextIcon == null) {
+        final Drawable drawable = ContextCompat.getDrawable(context, R.mipmap.icon_clear_text);
+        final Drawable wrapDrawable = DrawableCompat.wrap(drawable);
+        DrawableCompat.setTint(wrapDrawable, getCurrentHintTextColor());
+        mClearTextIcon = wrapDrawable;
+    }
+
+    mClearTextIcon.setBounds(0, 0, mClearTextIcon.getIntrinsicHeight(), mClearTextIcon.getIntrinsicHeight());
+    setClearIconVisible(false);
+    super.setOnFocusChangeListener(this);
+    super.setOnTouchListener(this);
+    addTextChangedListener(this);
+}
+
+public void setmOnFocusChangeListener(OnFocusChangeListener mOnFocusChangeListener) {
+    this.mOnFocusChangeListener = mOnFocusChangeListener;
+}
+
+public void setmOnTouchListener(OnTouchListener mOnTouchListener) {
+    this.mOnTouchListener = mOnTouchListener;
+}
+
+private void setClearIconVisible(boolean visible) {
+    mClearTextIcon.setVisible(visible &amp;&amp; isShowClearIcon, false);
+    final Drawable[] compoundDrawables = getCompoundDrawables();
+    setCompoundDrawables(
+            compoundDrawables[0],
+            compoundDrawables[1],
+            visible ? mClearTextIcon : null,
+            compoundDrawables[3]);
+}
+
+@Override
+public void onFocusChange(View v, boolean hasFocus) {
+    if (hasFocus) {
+        setClearIconVisible(getText().length() &gt; 0);
+    } else {
+        setClearIconVisible(false);
+    }
+    if (mOnFocusChangeListener != null) {
+        mOnFocusChangeListener.onFocusChange(v, hasFocus);
+    }
+}
+
+@Override
+public boolean onTouch(View v, MotionEvent motionEvent) {
+    int x = (int) motionEvent.getX();
+    if (mClearTextIcon.isVisible() &amp;&amp; x &gt; getWidth() - getPaddingRight() - mClearTextIcon.getIntrinsicWidth()) {
+        if (motionEvent.getAction() == motionEvent.ACTION_UP) {
+            setError(null);
+            setText(&quot;&quot;);
+        }
+        return true;
+    }
+    return (mOnTouchListener != null &amp;&amp; mOnTouchListener.onTouch(v, motionEvent));
+
+}
+
+public void isShowClearIcon(boolean isShowClearIcon) {
+    this.isShowClearIcon = isShowClearIcon;
+    setClearIconVisible(getText().length() &gt; 0);
+}
+
+@Override
+public void onTextChanged(CharSequence text, int start, int lengthBefore, int lengthAfter) {
+    if (isFocused()) {
+        setClearIconVisible(text.length() &gt; 0);
+    }
+
+}
+
+@Override
+public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+}
+
+@Override
+public void afterTextChanged(Editable s) {
+
+}</code></pre><p>}</p>
+<pre><code>
+attrs：
+
+```xml
+    &lt;declare-styleable name=&quot;ClearEditText&quot;&gt;
+        &lt;!--是否需要展示清除按钮--&gt;
+        &lt;attr name=&quot;isShowClearIcon&quot; format=&quot;boolean&quot;/&gt;
+    &lt;/declare-styleable&gt;</code></pre><p>使用</p>
+<pre><code class="xml">&lt;xxx.ClearEditText&gt;
+    &lt;!--some parms here--&gt;
+    ...
+
+    &lt;!--set is show the icon here--&gt;
+    app:isShowClearIcon = &quot;true&quot;
+&lt;/ClearEditText&gt;</code></pre>
+<p>或者在<code>java</code>代码中:</p>
+<pre><code class="java">clearTextView.isShowClearIcon(true);</code></pre>
+</div></article></div><div class="right-container"><div class="widget"><div id="arAnchorBar"></div></div></div></section></div><div class="right-menu"></div><div class="blog-overlay"></div><footer class="row"><div class="footer-con"><div class="paginator"><a href="/dd-cmd-on-linux/" title="Linux下DD命令进度查看" class="prev">PREV</a><a href="/listen-all-edittext-in-your-layout/" title="监听布局内所有的EditText" class="next">NEXT</a></div><div class="copyright"><p>© 2020 <a target="_blank">一个开发</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> <br> and <a href="https://github.com/Bulandent/hexo-theme-bubuzou" target="_blank">hexo-theme-bubuzou</a></p><p> <span style="padding-right: 6px;">闽ICP备16007301号-2</span></p></div><div class="totop"><i></i></div></div></footer><script async src="//cdn.bootcss.com/mathjax/2.6.1/MathJax.js?config=TeX-MML-AM_CHTML"></script><script src="/scripts/jquery-1.8.2.min.js"></script><script src="/scripts/ar-anchor.js"></script><script src="/scripts/main.js"></script></body></html>
