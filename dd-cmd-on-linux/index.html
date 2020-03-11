@@ -1,203 +1,161 @@
 <!DOCTYPE html>
-          <head>
-        <meta charset="utf-8">
-            
-            <title>
-                Linux下DD命令进度查看 | 一个开发
-            </title>
-            <meta content="width=device-width, initial-scale=1" name="viewport">
-            <meta name="theme-color" content="#4184f3">
-            
-            
-            <link href="logo.png" rel="icon"/>
-            
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>一个开发</title>
+    
+<link rel="stylesheet" href="/css/style.css">
 
-            
-<link rel="stylesheet" href="/css/highlight.light.css">
+    
+<link rel="stylesheet" href="/css/gitment.css">
 
-            
-<link rel="stylesheet" href="/css/prism-customize.css">
-
-            
-<link rel="stylesheet" href="/css/nav-icon.css">
-
-            
-<link rel="stylesheet" href="/css/waves.min.css">
-
-            
-<link rel="stylesheet" href="/css/jquery.tocify.css">
-
-            
-<link rel="stylesheet" href="/css/main.css">
-
-            
-<link rel="stylesheet" href="/css/nav-indicator.css">
-
-            
-  
-  <!-- 百度统计 -->
-  <script>
-  var _hmt = _hmt || [];
-  (function() {
-    var hm = document.createElement("script");
-    hm.src = "//hm.baidu.com/hm.js?0fbeadde1a30b2ff72b6885bc3123083";
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(hm, s);
-  })();
-  </script>
-  
-
-  
-            </meta>
-        </meta>
-    <meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="一个开发" type="application/atom+xml">
+    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_859455_eaq7v6w8ktj.css">
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="一个开发" type="application/atom+xml">
 </head>
+<body>
+<header class="header">
+    <div class="header-inner">
+        <div class="header-title">
 
-    <body>
-        <header>
-            <!-- cover image or sth. -->
-        </header>
-        <div id="main" class="m-scene">
+        </div>
+        <nav class="header-nav">
             
-<div class="nav-wrapper">
 
-    <div class="container">
-        <nav>
-            <div class="logo wave">
-                <a href="/" id="logo">
-                    一个开发
-                </a>
-            </div>
-            <div class="nav-toggle-icon" >
-                <div class="material-hamburger">
-                    <span>
-                    </span>
-                    <span>
-                    </span>
-                    <span>
-                    </span>
-                </div>
-            </div>
-            <div class="menu-wrapper">
-                <div class="nav-indicator">
-                </div>
-                <ul class="menus">
-                    
-                     
-                        <li>
-                            <a class="wave " href="/">
-                                首页
-                            </a>
-                        </li>
-                     
-                        <li>
-                            <a class="wave " href="/archives">
-                                归档
-                            </a>
-                        </li>
-                     
-                        <li>
-                            <a class="wave " href="/about">
-                                关于
-                            </a>
-                        </li>
-                     
-                    
-                   
-                </ul>
-            </div>
+            
+
+            
+
+            
         </nav>
     </div>
+</header>
+<header class="mobile-header">
+    <div class="mobile-nav">
+        <div class="mobile-nav-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="mobile-nav-title">
+            <a href="/" class="mobile-nav-title-link">一个开发's Blog</a>
+        </div>
+
+    </div>
+    <nav class="mobile-menu">
+        <ul class="mobile-menu-list">
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-home"></i>
+                <a href="/" class="mobile-nav-link">首页</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-archive"></i>
+                <a href="/archives" class="mobile-nav-link">归档</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-tag"></i>
+                <a href="/tags" class="mobile-nav-link">标签</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-about"></i>
+                <a href="/about/" class="mobile-nav-link">关于</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="main">
+    <div class="content-inner">
+        <div class="posts">
+    <article class="post-whole">
+        <div class="post-title">
+            <h2 class="title">Linux下DD命令进度查看</h2>
+            <div class="post-meta">
+                <span class="post-time">2020-03-11</span>
+                
+                <span class="post-category">
+                    
+                    <a class="category" href="/categories/Note/">Note</a>
+                    
+                </span>
+                
+            </div>
+        </div>
+        <div class="post-toc" id="post-toc">
+    <strong class="post-toc-title">目录</strong>
+    
+    <div class="back-to-top" id="back-to-top">
+        <a href="javascript:void(0);">回到顶部</a>
+    </div>
 </div>
-            <div class="container content">
-                <div class="scene_element scene_element--fadein">
-                    <div class="row">
-    <div class="main">
-        <article>
-          
-          <header class="post-header">
-          
-          </header>
-          <h1 class="post-title">Linux下DD命令进度查看</h1>
-
-          <section class="post-info">
-            <span class="post-date">2020/03/11</span>
-            
-            <span class="post-category">
-                <a class="article-category-link" href="/categories/Note/">Note</a>
-            </span>
-            
-            
-            <span class="post-tags">
-              <ul class="post-tag-list" itemprop="keywords"><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="post-tag-list-item"><a class="post-tag-list-link" href="/tags/cmd/" rel="tag">cmd</a></li></ul>
-            </span>
-            
-          </section>
-
-          <section class="post-content">
+        <div class="post-content">
             <p>在Ubuntu 系统上执行如下命令</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">dd if=/img.iso of=/dev/mydevice bs=10M count=100000</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
 <p>有的时候，可能会非常耗时，这个时候，如果让dd命令输出执行进度信息，会非常有用。</p>
 <p>重新打开一个Shell，然后执行如下命令即可每秒输出一次进度信息</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">watch -n 1 pkill -USR1 -x dd</span><br></pre></td></tr></table></figure>
-          </section>
-        </article>
-        
-
-       
-        <div class="pager">
-          
-            <a class="post-prev pager-item" href="/script-cant-run-on-powershell/" >
-              <strong class="article-nav-caption">上一篇</strong>
-              <p class="post-nav-title">PowerShell禁止执行脚本的解决方法</p>
-            </a>
-          
-          
-            <a class="post-next pager-item" href="/edittext-with-clear-icon/">
-              <strong class="article-nav-caption">下一篇</strong>
-              <p class="post-nav-title">自带清除内容功能的EditText</p>
-            </a>
-          
         </div>
         
-
-         <!-- comments -->
-        <div class="comment-section">
-  
-    
-
-
+        <div class="post-tag">
+            
+            <a class="tag" href="/tags/Linux/" title="Linux">Linux</a>
+            
+            <a class="tag" href="/tags/cmd/" title="cmd">cmd</a>
+            
+        </div>
+        
+    </article>
 </div>
-
+<div class="paginator">
+    
+        
+            <a class="prev" href="/script-cant-run-on-powershell/">
+                <i class="iconfont icon-prev"></i>
+                <span class="nav-default">PowerShell禁止执行脚本的解决方法</span>
+                <span class="nav-mobile">上一篇</span>
+            </a>
+        
+        
+            <a class="next" href="/edittext-with-clear-icon/">
+                <span class="nav-default">自带清除内容功能的EditText</span>
+                <span class="nav-mobile">下一篇</span>
+                <i class="iconfont icon-next"></i>
+            </a>
+        
+    
+</div>
+<div id="comment-container"></div>
     </div>
-    
 </div>
+<footer class="footer-social">
+    
 
-                </div>
-            </div>
-        </div>
-        <footer class="footer">
-    <p>由<a href="http://hexo.io/" target="_blank">Hexo</a>强力驱动，搭载<a href="https://github.com/wayou/hexo-theme-gstyle" target="_blank" rel="noopener">gstyle</a>主题</p>
-    <p>
-        &copy; 2020 一个开发
-    </p>
+    
+
+    
+
+    <div class="footer-copyright">
+        <p class="time-line">
+            &copy;
+            
+            
+            2020
+            &nbsp;<i class="iconfont icon-heart"></i>&nbsp;
+            <a target="_blank" href="https://github.com/iJinxin">一个开发</a>
+        </p>
+        <p class="theme-info">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme -
+            <a target="_blank" href="https://github.com/iJinxin/hexo-theme-sky">Sky</a>
+        </p>
+    </div>
 </footer>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-<script src="/lib/jquery.js"></script>
+<script src="/js/index.js"></script>
 
+<script>
+    
 
-<script src="/lib/waves.js"></script>
-
-
-<script src="/lib/jquery-ui.js"></script>
-
-
-<script src="/lib/jquery.tocify.js"></script>
-
-
-<script src="/js/main.js"></script>
-
-
-    </body>
+</script>
 </html>
