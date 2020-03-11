@@ -1,161 +1,111 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  
-  <title>PowerShell禁止执行脚本的解决方法 | 一个开发</title>
-  <meta name="description" content="一个开发的自留地，虽然我不经常写什么东西，但是只是做个记录用" />
-  <meta name="keywords" content="" />
-  <meta name="HandheldFriendly" content="True" />
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <link rel="shortcut icon" href="/">
-  <link rel="alternate" href="/atom.xml" title="一个开发">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="如果出现类似下面的提示： 无法加载文件 ******.xxx，因为在此系统中禁止执行脚本。有关详细信息，请参阅 &quot;get-help about_signing&quot;。所在位置 行:1 字符: 17  解决方法：">
-<meta property="og:type" content="article">
-<meta property="og:title" content="PowerShell禁止执行脚本的解决方法">
-<meta property="og:url" content="https://yigekaifa.com/script-cant-run-on-powershell/index.html">
-<meta property="og:site_name" content="一个开发">
-<meta property="og:description" content="如果出现类似下面的提示： 无法加载文件 ******.xxx，因为在此系统中禁止执行脚本。有关详细信息，请参阅 &quot;get-help about_signing&quot;。所在位置 行:1 字符: 17  解决方法：">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-03-10T18:26:23.000Z">
-<meta property="article:modified_time" content="2020-03-10T19:34:14.407Z">
-<meta property="article:author" content="一个开发">
-<meta property="article:tag" content="PowerShell">
-<meta property="article:tag" content="Script">
-<meta name="twitter:card" content="summary">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>一个开发</title>
     
-  <link href="https://fonts.googleapis.com/css?family=Inconsolata|Titillium+Web" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
-  <link href='//cdn.bootcss.com/node-waves/0.7.5/waves.min.css' rel='stylesheet'>
-  
-<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/css/style.css">
 
+    
+<link rel="stylesheet" href="/css/gitment.css">
 
-  <link rel="icon" href="/logo.png">
-
-  <script>
-    function setLoadingBarProgress(num) {
-      document.getElementById('loading-bar').style.width=num+"%";
-    }
-  </script>
+    <link href="/logo.png" rel="icon"/>
+    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_859455_eaq7v6w8ktj.css">
 <meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="一个开发" type="application/atom+xml">
 </head>
-
 <body>
-  <div id="loading-bar-wrapper">
-  <div id="loading-bar"></div>
-</div>
+<header class="header">
+    <div class="header-inner">
+        <div class="header-title">
 
+        </div>
+        <nav class="header-nav">
+            
+            <a href="/" class="header-nav-link" >
+                首页
+            </a>
+            
 
-  <script>setLoadingBarProgress(20)</script> 
-  <header class="l_header">
-	<div class='wrapper'>
-		<div class="nav-main container container--flex">
-			<a class="logo flat-box" href='/' >
-				一个开发
-			</a>
-			<div class='menu'>
-				<ul class='h-list'>
-					
-						<li>
-							<a class='flat-box nav-home' href='/'>
-								首页
-							</a>
-						</li>
-					
-						<li>
-							<a class='flat-box nav-archives' href='/archives'>
-								归档
-							</a>
-						</li>
-					
-						<li>
-							<a class='flat-box nav-about' href='/about'>
-								关于
-							</a>
-						</li>
-					
-				</ul>
-				<div class='underline'></div>
-			</div>
-			
-				<div class="m_search">
-					<form name="searchform" class="form u-search-form">
-						<input type="text" class="input u-search-input" placeholder="Search" />
-						<span class="icon icon-search"></span>
-					</form>
-				</div>
-			
-			<ul class='switcher h-list'>
-				
-					<li class='s-search'><a href='javascript:void(0)'><span class="icon icon-search flat-box"></span></a></li>
-				
-				<li class='s-menu'><a href='javascript:void(0)'><span class="icon icon-menu flat-box"></span></a></li>
-			</ul>
-		</div>
-		
-		<div class='nav-sub container container--flex'>
-			<a class="logo" class="flat-box" href='javascript:void(0)'>
-				Word of Forks
-			</a>
+            
+            <a href="/archives" class="header-nav-link">
+                归档
+            </a>
+            
 
-			<ul class='switcher h-list'>
-				<li class='s-comment'><a href='javascript:void(0)'><span class="icon icon-chat_bubble_outline flat-box"></span></a></li>
-				<li class='s-top'><a href='javascript:void(0)'><span class="icon icon-arrow_upward flat-box"></span></a></li>
-				<li class='s-toc'><a href='javascript:void(0)'><span class="icon icon-format_list_numbered flat-box"></span></a></li>
-			</ul>
-		</div>
-	</div>
-</header>
-<aside class="menu-phone">
-	<nav>
-		
-			<a href="/" class="nav-home nav">
-				首页
-			</a>
-		
-			<a href="/archives" class="nav-archives nav">
-				归档
-			</a>
-		
-			<a href="/about" class="nav-about nav">
-				关于
-			</a>
-		
-	</nav>
-</aside>
+            
+            <a href="/tags" class="header-nav-link">
+                标签
+            </a>
+            
 
-    <script>setLoadingBarProgress(40);</script>
-  <div class="l_body">
-    <div class='container clearfix'>
-      <div class='l_main'>
-        <article id="post-script-cant-run-on-powershell"
-  class="post white-box article-type-post"
-  itemscope itemprop="blogPost">
-	<section class='meta'>
-	<h2 class="title">
-  	<a href="/script-cant-run-on-powershell/">
-    	PowerShell禁止执行脚本的解决方法
-    </a>
-  </h2>
-	<time>
-	  3月 11, 2020
-	</time>
-	
-    
-    <div class='cats'>
-        <a href="/categories/Note/">Note</a>
+            
+            <a href="/about/" class="header-nav-link">
+                关于
+            </a>
+            
+        </nav>
     </div>
+</header>
+<header class="mobile-header">
+    <div class="mobile-nav">
+        <div class="mobile-nav-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="mobile-nav-title">
+            <a href="/" class="mobile-nav-title-link">一个开发's Blog</a>
+        </div>
 
-	</section>
-	
-		<section class="toc-wrapper"></section>
-	
-	<section class="article typo">
-  	<div class="article-entry" itemprop="articleBody">
-    	<p>如果出现类似下面的提示：</p>
+    </div>
+    <nav class="mobile-menu">
+        <ul class="mobile-menu-list">
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-home"></i>
+                <a href="/" class="mobile-nav-link">首页</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-archive"></i>
+                <a href="/archives" class="mobile-nav-link">归档</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-tag"></i>
+                <a href="/tags" class="mobile-nav-link">标签</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-about"></i>
+                <a href="/about/" class="mobile-nav-link">关于</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="main">
+    <div class="content-inner">
+        <div class="posts">
+    <article class="post-whole">
+        <div class="post-title">
+            <h2 class="title">PowerShell禁止执行脚本的解决方法</h2>
+            <div class="post-meta">
+                <span class="post-time">2020-03-11</span>
+                
+                <span class="post-category">
+                    
+                    <a class="category" href="/categories/Note/">Note</a>
+                    
+                </span>
+                
+            </div>
+        </div>
+        <div class="post-toc" id="post-toc">
+    <strong class="post-toc-title">目录</strong>
+    
+    <div class="back-to-top" id="back-to-top">
+        <a href="javascript:void(0);">回到顶部</a>
+    </div>
+</div>
+        <div class="post-content">
+            <p>如果出现类似下面的提示：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">无法加载文件 ******.xxx，因为在此系统中禁止执行脚本。有关详细信息，请参阅 <span class="string">"get-help about_signing"</span>。</span><br><span class="line">所在位置 行:1 字符: 17</span><br></pre></td></tr></table></figure>
 
 <p>解决方法：</p>
@@ -164,147 +114,62 @@
 <p>然后就可以运行命令了。</p>
 <p>另外如果还不能执行，例如你npm安装的一些命令不能运行，那么请你把<code>C:\Users\用户名\AppData\Roaming\npm</code>添加到系统变量<code>Path</code>里面。</p>
 
-  	</div>
-	  
-	  <div class="article-tags tags">
-      
-        <a href="/tags/PowerShell/">PowerShell</a>
-      
-        <a href="/tags/Script/">Script</a>
-      
-	  </div>
-    
-		
-	
-		<div class="art-item-footer">
-				
-					<span class="art-item-left"><i class="icon icon-chevron-thin-left"></i>prev：<a href="/if-i-dead/" rel="prev"  title="如果我死了">
-						如果我死了 
-					</a></span>
-				
-				
-					<span class="art-item-right">next：<a href="/dd-cmd-on-linux/" rel="next"  title="Linux下DD命令进度查看">
-						Linux下DD命令进度查看
-					</a><i class="icon icon-chevron-thin-right"></i></span>
-				
-		</div>
-	
-	</section>
-	
-</article>
-<script>
-	window.subData = {
-		title: 'PowerShell禁止执行脚本的解决方法',
-		tools: true
-	}
-</script>
-
-      </div>
-      <aside class='l_side'>
+        </div>
         
-  <section class='m_widget about'>
-
-<div class='header'>一个开发</div>
-<div class='content'>
-<div class='desc'>Tempora mutantur, nos et mutamur in illis ...</div>
+        <div class="post-tag">
+            
+            <a class="tag" href="/tags/PowerShell/" title="PowerShell">PowerShell</a>
+            
+            <a class="tag" href="/tags/Script/" title="Script">Script</a>
+            
+        </div>
+        
+    </article>
 </div>
-</section>
-
-  <section class='m_widget links'>
-<div class='header'>Links</div>
-<div class='content'>
-    <ul class="entry">
+<div class="paginator">
     
-        <li><a class="flat-box" target="_blank" href="https://twitter.com/yigekaifa">
-            <div class='name'>Twitter</div>
-        </a></li>
-    
-    </ul>
-</div>
-</section>
-
-  <section class='m_widget categories'>
-<div class='header'>Categories</div>
-<div class='content'>
-    
-    <ul class="entry">
-    
-        <li><a class="flat-box" href="/categories/Dev/"><div class='name'>Dev</div><div class='badget'>5</div></a></li>
-    
-        <li><a class="flat-box" href="/categories/Note/"><div class='name'>Note</div><div class='badget'>2</div></a></li>
-    
-        <li><a class="flat-box" href="/categories/Think/"><div class='name'>Think</div><div class='badget'>1</div></a></li>
-    
-    </ul>
+        
+            <a class="prev" href="/if-i-dead/">
+                <i class="iconfont icon-prev"></i>
+                <span class="nav-default">如果我死了</span>
+                <span class="nav-mobile">上一篇</span>
+            </a>
+        
+        
+            <a class="next" href="/dd-cmd-on-linux/">
+                <span class="nav-default">Linux下DD命令进度查看</span>
+                <span class="nav-mobile">下一篇</span>
+                <i class="iconfont icon-next"></i>
+            </a>
+        
     
 </div>
-</section>
-
-  
-<div class="m_widget tagcloud">
-    <div class="header">Tags</div>
-    <div class='content'>
-        <a href="/tags/Android/" style="font-size: 14px; color: #808080">Android</a> <a href="/tags/Custom/" style="font-size: 14px; color: #808080">Custom</a> <a href="/tags/CustomView/" style="font-size: 14px; color: #808080">CustomView</a> <a href="/tags/Edittext/" style="font-size: 20px; color: #000">Edittext</a> <a href="/tags/Fragment/" style="font-size: 14px; color: #808080">Fragment</a> <a href="/tags/Linux/" style="font-size: 14px; color: #808080">Linux</a> <a href="/tags/Location/" style="font-size: 14px; color: #808080">Location</a> <a href="/tags/PowerShell/" style="font-size: 14px; color: #808080">PowerShell</a> <a href="/tags/Script/" style="font-size: 14px; color: #808080">Script</a> <a href="/tags/TabLayout/" style="font-size: 14px; color: #808080">TabLayout</a> <a href="/tags/ViewGroup/" style="font-size: 14px; color: #808080">ViewGroup</a> <a href="/tags/cmd/" style="font-size: 14px; color: #808080">cmd</a> <a href="/tags/custom/" style="font-size: 14px; color: #808080">custom</a> <a href="/tags/startWithPop/" style="font-size: 14px; color: #808080">startWithPop</a> <a href="/tags/widget/" style="font-size: 14px; color: #808080">widget</a> <a href="/tags/%E5%AE%9A%E4%BD%8D/" style="font-size: 14px; color: #808080">定位</a> <a href="/tags/%E7%85%A7%E7%89%87/" style="font-size: 14px; color: #808080">照片</a> <a href="/tags/%E7%86%AC%E5%A4%9C/" style="font-size: 14px; color: #808080">熬夜</a> <a href="/tags/%E9%9A%8F%E6%83%B3/" style="font-size: 14px; color: #808080">随想</a>
+<div id="comment-container"></div>
     </div>
 </div>
-
-
-
-      </aside>
-      <script>setLoadingBarProgress(60);</script>
-    </div>
-  </div>
-  <footer id="footer" class="clearfix">
-
-	<div class="social-wrapper">
-  	
-      
-        <a href="https://twitter.com/yigekaifa" class="social twitter"
-          target="_blank" rel="external">
-          <span class="icon icon-twitter"></span>
-        </a>
-      
+<footer class="footer-social">
     
-  </div>
-  
-  <div>Theme <a href='https://github.com/stkevintan/hexo-theme-material-flow' target="_blank" rel="noopener" class="codename">MaterialFlow</a> designed by <a href="http://keyin.me/" target="_blank">Kevin Tan</a>.</div>
-  
+
+    
+
+    
+
+    <div class="footer-copyright">
+        <p class="time-line">
+            &copy;
+            
+            
+            2020
+            &nbsp;<i class="iconfont icon-heart"></i>&nbsp;
+            <a target="_blank" href="https://github.com/iJinxin">一个开发</a>
+        </p>
+        <p class="theme-info">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme -
+            <a target="_blank" href="https://github.com/iJinxin/hexo-theme-sky">Sky</a>
+        </p>
+    </div>
 </footer>
-
-
-  <script>setLoadingBarProgress(80);</script>
-  
-
-<script src="//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-<script src='//cdn.bootcss.com/node-waves/0.7.5/waves.min.js'></script>
-<script src="//cdn.bootcss.com/scrollReveal.js/3.3.2/scrollreveal.min.js"></script>
-
-<script src="/js/jquery.fitvids.js"></script>
-
 <script>
-	var GOOGLE_CUSTOM_SEARCH_API_KEY = "";
-	var GOOGLE_CUSTOM_SEARCH_ENGINE_ID = "";
-	var ALGOLIA_API_KEY = "";
-	var ALGOLIA_APP_ID = "";
-	var ALGOLIA_INDEX_NAME = "";
-  var AZURE_SERVICE_NAME = "";
-  var AZURE_INDEX_NAME = "";
-  var AZURE_QUERY_KEY = "";
-  var BAIDU_API_ID = "";
-  var SEARCH_SERVICE = "hexo";
-  var ROOT = "/"||"/";
-  if(!ROOT.endsWith('/'))ROOT += '/';
-</script>
-
-<script src="/js/search.js"></script>
-
-
-<script src="/js/app.js"></script>
-
-
-
-  <script>setLoadingBarProgress(100);</script>
-  <script>
 var _hmt = _hmt || [];
 (function() {
   var hm = document.createElement("script");
@@ -313,6 +178,14 @@ var _hmt = _hmt || [];
   s.parentNode.insertBefore(hm, s);
 })();
 </script>
-
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    
+
+</script>
 </html>
