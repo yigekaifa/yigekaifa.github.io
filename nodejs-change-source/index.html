@@ -82,171 +82,83 @@
 </header>
 <div class="main">
     <div class="content-inner">
-        <section class="archive">
+        <div class="posts">
+    <article class="post-whole">
+        <div class="post-title">
+            <h2 class="title">npm切换淘宝源</h2>
+            <div class="post-meta">
+                <span class="post-time">2020-03-12</span>
+                
+                <span class="post-category">
+                    
+                    <a class="category" href="/categories/Note/">Note</a>
+                    
+                </span>
+                
+            </div>
+        </div>
+        <div class="post-toc" id="post-toc">
+    <strong class="post-toc-title">目录</strong>
     
-    <div class="archive-title category">
-        <h2 class="archive-name">Dev</h2>
+    <div class="back-to-top" id="back-to-top">
+        <a href="javascript:void(0);">回到顶部</a>
     </div>
-    
+</div>
+        <div class="post-content">
+            <p>全局配置切换到淘宝源</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 
-    
-    
+<p>临时使用淘宝源</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm --registry https://registry.npm.taobao.org install node-red-contrib-composer@latest</span><br></pre></td></tr></table></figure>
+
+<p>全局配置切换到官方源</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry http://www.npmjs.org</span><br></pre></td></tr></table></figure>
+<p>检测是否切换到了淘宝源</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm info underscore</span><br></pre></td></tr></table></figure>
+
+<p>另外：</p>
+<blockquote>
+<p>默认的npm下载地址：<a href="http://www.npmjs.org/" target="_blank" rel="noopener">http://www.npmjs.org/</a><br>淘宝npm镜像的地址：<a href="https://npm.taobao.org/" target="_blank" rel="noopener">https://npm.taobao.org/</a><br>你也可以使用CNPM：<a href="https://cnpmjs.org" target="_blank" rel="noopener">https://cnpmjs.org</a></p>
+</blockquote>
+
+        </div>
         
+        <div class="post-tag">
             
+            <a class="tag" href="/tags/nodejs/" title="nodejs">nodejs</a>
             
-                
+            <a class="tag" href="/tags/npm/" title="npm">npm</a>
             
-
+            <a class="tag" href="/tags/cnpm/" title="cnpm">cnpm</a>
             
+            <a class="tag" href="/tags/%E6%BA%90%E5%9C%B0%E5%9D%80/" title="源地址">源地址</a>
+            
+            <a class="tag" href="/tags/%E6%B7%98%E5%AE%9D%E6%BA%90/" title="淘宝源">淘宝源</a>
+            
+        </div>
         
-
-    
-        
-            
-            
-                
-            
-
-            
-        
-
-    
-        
-            
-            
-                
-            
-
-            
-        
-
-    
-        
-            
-            
-                
-                    
-                
-            
-
-            
-                <div class="archive-post">
-                    <span class="archive-post-time">
-                    2020-03-11
-                    </span>
-                    <span class="archive-post-title">
-                        <a class="archive-post-link" href="/edittext-with-clear-icon/">自带清除内容功能的EditText</a>
-                    </span>
-                </div>
-            
-        
-
+    </article>
+</div>
+<div class="paginator">
     
         
-            
-            
-                
-            
-
-            
+            <a class="prev" href="/how-to-clone-git-faster/">
+                <i class="iconfont icon-prev"></i>
+                <span class="nav-default">两个方法解决git clone慢的问题</span>
+                <span class="nav-mobile">上一篇</span>
+            </a>
         
-
+        
+            <a class="next" href="/if-i-dead/">
+                <span class="nav-default">如果我死了</span>
+                <span class="nav-mobile">下一篇</span>
+                <i class="iconfont icon-next"></i>
+            </a>
+        
     
-        
-            
-            
-                
-            
-
-            
-        
-
-    
-        
-            
-            
-                
-                    
-                
-            
-
-            
-                <div class="archive-post">
-                    <span class="archive-post-time">
-                    2020-03-10
-                    </span>
-                    <span class="archive-post-title">
-                        <a class="archive-post-link" href="/listen-all-edittext-in-your-layout/">监听布局内所有的EditText</a>
-                    </span>
-                </div>
-            
-        
-
-    
-        
-            
-            
-                
-                    
-                
-            
-
-            
-                <div class="archive-post">
-                    <span class="archive-post-time">
-                    2020-03-10
-                    </span>
-                    <span class="archive-post-title">
-                        <a class="archive-post-link" href="/some-way-to-get-location/">Android中几种定位方式的粗解</a>
-                    </span>
-                </div>
-            
-        
-
-    
-        
-            
-            
-                
-                    
-                
-            
-
-            
-                <div class="archive-post">
-                    <span class="archive-post-time">
-                    2020-03-10
-                    </span>
-                    <span class="archive-post-title">
-                        <a class="archive-post-link" href="/some-changes-for-tablayout/">TabLayout的简单修改</a>
-                    </span>
-                </div>
-            
-        
-
-    
-        
-            
-            
-                
-                    
-                
-            
-
-            
-                <div class="archive-post">
-                    <span class="archive-post-time">
-                    2020-03-10
-                    </span>
-                    <span class="archive-post-title">
-                        <a class="archive-post-link" href="/startwithpop-close-both-fragment/">startWithPop()出现两个Fragment都退出的情况</a>
-                    </span>
-                </div>
-            
-        
-
-    
-</section>
+</div>
+<div id="comment-container"></div>
     </div>
 </div>
 <footer class="footer-social">

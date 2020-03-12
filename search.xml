@@ -4,6 +4,68 @@
   
     
     <entry>
+      <title>两个方法解决git clone慢的问题</title>
+      <link href="/how-to-clone-git-faster/"/>
+      <url>/how-to-clone-git-faster/</url>
+      
+        <content type="html"><![CDATA[<p>国内本来就没有git的服务器，所以访问超慢<br>尤其是在个别运营商的加持下，速度更是慢到令人发指。所以我就总结了两个方法来解决这个问题。</p><a id="more"></a><h2 id="方法一：使用gitee复制仓库，然后克隆gitee的仓库-推荐"><a href="/how-to-clone-git-faster/#方法一：使用gitee复制仓库，然后克隆gitee的仓库-推荐" class="headerlink" title="方法一：使用gitee复制仓库，然后克隆gitee的仓库[推荐]"></a>方法一：使用gitee复制仓库，然后克隆gitee的仓库[推荐]</h2><p>在登陆<a href="https://gitee.com" target="_blank" rel="noopener">gitee.com</a> 之后，在右上角的加号里点击添加仓库，然后直接往下滑动。</p><p>在下面可以看到</p><p><img src="/how-to-clone-git-faster/1.png" alt=""></p><p>然后点击<a href="/how-to-clone-git-faster/">导入已有仓库</a>之后，在下面输入你需要克隆的仓库即可。</p><p><img src="/how-to-clone-git-faster/2.png" alt=""></p><blockquote><p>注意：这里如果系统提示你，当前已经存在克隆的仓库，为了避免已经存在的复制仓库有修改或者长时间未更新的情况，建议忽略提示。</p></blockquote><p>优点：方便快捷，而且几十M的库克隆基本都是满速</p><p>问题：个别脚本内置的地址为github的地址，手动修改内容量太大</p><h2 id="方法二：使用代理"><a href="/how-to-clone-git-faster/#方法二：使用代理" class="headerlink" title="方法二：使用代理"></a>方法二：使用代理</h2><p>我们在打开代理之后，一般命令行工具是不走代理的，需要手动设置一下，这里我们用<code>powershell</code>做参考</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 注意，这里后面的1080为你的代理的端口，SS和SSR一般为1080,CLASH一般为7891，具体看个人设置</span></span><br><span class="line"><span class="variable">$env</span>:HTTPS_PROXY=<span class="string">"http://127.0.0.1:1080"</span></span><br><span class="line"><span class="variable">$env</span>:HTTP_PROXY=<span class="string">"http://127.0.0.1:1080"</span></span><br></pre></td></tr></table></figure><p>如果不知道自己的代理端口是多少的话，windows下：设置-网络和Intetnet-代理-右面下方有端口显示</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Note </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> git </tag>
+            
+            <tag> vpn </tag>
+            
+            <tag> 代理 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>npm切换淘宝源</title>
+      <link href="/nodejs-change-source/"/>
+      <url>/nodejs-change-source/</url>
+      
+        <content type="html"><![CDATA[<p>全局配置切换到淘宝源</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure><a id="more"></a><p>临时使用淘宝源</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm --registry https://registry.npm.taobao.org install node-red-contrib-composer@latest</span><br></pre></td></tr></table></figure><p>全局配置切换到官方源</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry http://www.npmjs.org</span><br></pre></td></tr></table></figure><p>检测是否切换到了淘宝源</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm info underscore</span><br></pre></td></tr></table></figure><p>另外：</p><blockquote><p>默认的npm下载地址：<a href="http://www.npmjs.org/" target="_blank" rel="noopener">http://www.npmjs.org/</a><br>淘宝npm镜像的地址：<a href="https://npm.taobao.org/" target="_blank" rel="noopener">https://npm.taobao.org/</a><br>你也可以使用CNPM：<a href="https://cnpmjs.org" target="_blank" rel="noopener">https://cnpmjs.org</a></p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> Note </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> nodejs </tag>
+            
+            <tag> npm </tag>
+            
+            <tag> cnpm </tag>
+            
+            <tag> 源地址 </tag>
+            
+            <tag> 淘宝源 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>如果我死了</title>
       <link href="/if-i-dead/"/>
       <url>/if-i-dead/</url>

@@ -85,13 +85,13 @@
         <div class="posts">
     <article class="post-whole">
         <div class="post-title">
-            <h2 class="title">如果我死了</h2>
+            <h2 class="title">两个方法解决git clone慢的问题</h2>
             <div class="post-meta">
-                <span class="post-time">2020-03-11</span>
+                <span class="post-time">2020-03-12</span>
                 
                 <span class="post-category">
                     
-                    <a class="category" href="/categories/Think/">Think</a>
+                    <a class="category" href="/categories/Note/">Note</a>
                     
                 </span>
                 
@@ -99,31 +99,38 @@
         </div>
         <div class="post-toc" id="post-toc">
     <strong class="post-toc-title">目录</strong>
-    
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#方法一：使用gitee复制仓库，然后克隆gitee的仓库-推荐"><span class="toc-text">方法一：使用gitee复制仓库，然后克隆gitee的仓库[推荐]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法二：使用代理"><span class="toc-text">方法二：使用代理</span></a></li></ol>
     <div class="back-to-top" id="back-to-top">
         <a href="javascript:void(0);">回到顶部</a>
     </div>
 </div>
         <div class="post-content">
-            <p><img src="https://jpzhpg.bn.files.1drv.com/y4miTx58UjP8TG9PXij2Yu8FXjZXCOCNoiZZjznwDhBhkU5_-W8URzg-veXS6iy8IxttQgD2kLWkFJHwxEfZ-pYk3jKoY8WKUB6qdT1WdNhEq08Sf9qXNxm3-fPOF9ltC23w2qa02yRbqWJ0FPqsfjYPruDQj7JeItmRp2zCVw8NSh0l_vNEarhTBUGgYqMMgFNFhqwbxMXxXOLkHHaFwj0ew?width=4000&height=3000&cropmode=none" alt="我的阳台外"></p>
-<blockquote>
-<p>2020年3月11日 早 6：00</p>
-</blockquote>
+            <p>国内本来就没有git的服务器，所以访问超慢<br>尤其是在个别运营商的加持下，速度更是慢到令人发指。所以我就总结了两个方法来解决这个问题。</p>
 <a id="more"></a>
+<h2 id="方法一：使用gitee复制仓库，然后克隆gitee的仓库-推荐"><a href="/how-to-clone-git-faster/#方法一：使用gitee复制仓库，然后克隆gitee的仓库-推荐" class="headerlink" title="方法一：使用gitee复制仓库，然后克隆gitee的仓库[推荐]"></a>方法一：使用gitee复制仓库，然后克隆gitee的仓库[推荐]</h2><p>在登陆<a href="https://gitee.com" target="_blank" rel="noopener">gitee.com</a> 之后，在右上角的加号里点击添加仓库，然后直接往下滑动。</p>
+<p>在下面可以看到</p>
+<p><img src="/how-to-clone-git-faster/1.png" alt=""></p>
+<p>然后点击<a href="/how-to-clone-git-faster/">导入已有仓库</a>之后，在下面输入你需要克隆的仓库即可。</p>
+<p><img src="/how-to-clone-git-faster/2.png" alt=""></p>
+<blockquote>
+<p>注意：这里如果系统提示你，当前已经存在克隆的仓库，为了避免已经存在的复制仓库有修改或者长时间未更新的情况，建议忽略提示。</p>
+</blockquote>
+<p>优点：方便快捷，而且几十M的库克隆基本都是满速</p>
+<p>问题：个别脚本内置的地址为github的地址，手动修改内容量太大</p>
+<h2 id="方法二：使用代理"><a href="/how-to-clone-git-faster/#方法二：使用代理" class="headerlink" title="方法二：使用代理"></a>方法二：使用代理</h2><p>我们在打开代理之后，一般命令行工具是不走代理的，需要手动设置一下，这里我们用<code>powershell</code>做参考</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 注意，这里后面的1080为你的代理的端口，SS和SSR一般为1080,CLASH一般为7891，具体看个人设置</span></span><br><span class="line"><span class="variable">$env</span>:HTTPS_PROXY=<span class="string">"http://127.0.0.1:1080"</span></span><br><span class="line"><span class="variable">$env</span>:HTTP_PROXY=<span class="string">"http://127.0.0.1:1080"</span></span><br></pre></td></tr></table></figure>
 
-<p>昨晚没睡，但这不重要。问题是我丝毫没有瞌睡的感觉，而且我昨天没喝咖啡。</p>
-<p>所以啊，如果有一天我猝死了，我不希望有新闻带上我的职业。就写一男子猝死就行了。</p>
-<p>另外是不是人死之前都会写一些奇怪的东西…这些都不知道为什么想出来的，我现在也不想写奇怪的东西。我想写一下简历，然后收拾一下垃圾。</p>
+<p>如果不知道自己的代理端口是多少的话，windows下：设置-网络和Intetnet-代理-右面下方有端口显示</p>
 
         </div>
         
         <div class="post-tag">
             
-            <a class="tag" href="/tags/%E7%86%AC%E5%A4%9C/" title="熬夜">熬夜</a>
+            <a class="tag" href="/tags/git/" title="git">git</a>
             
-            <a class="tag" href="/tags/%E9%9A%8F%E6%83%B3/" title="随想">随想</a>
+            <a class="tag" href="/tags/vpn/" title="vpn">vpn</a>
             
-            <a class="tag" href="/tags/%E7%85%A7%E7%89%87/" title="照片">照片</a>
+            <a class="tag" href="/tags/%E4%BB%A3%E7%90%86/" title="代理">代理</a>
             
         </div>
         
@@ -132,15 +139,9 @@
 <div class="paginator">
     
         
-            <a class="prev" href="/nodejs-change-source/">
-                <i class="iconfont icon-prev"></i>
+        
+            <a class="next" href="/nodejs-change-source/">
                 <span class="nav-default">npm切换淘宝源</span>
-                <span class="nav-mobile">上一篇</span>
-            </a>
-        
-        
-            <a class="next" href="/script-cant-run-on-powershell/">
-                <span class="nav-default">PowerShell禁止执行脚本的解决方法</span>
                 <span class="nav-mobile">下一篇</span>
                 <i class="iconfont icon-next"></i>
             </a>
