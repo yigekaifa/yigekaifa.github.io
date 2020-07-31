@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" sizes="any" mask="" href="./logo.png">
+<link rel="apple-touch-icon" sizes="180x180" href="./logo-dark.png">
+<link rel="icon" type="image/png" sizes="32x32" href="./logo.png">
+<link rel="icon" type="image/png" sizes="16x16" href="./logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>提高APP冷启动速度小结 [ 一个开发 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.0.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/logo.png"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">Home</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">Archives</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">提高APP冷启动速度小结</h1>
+<article class="post markdown-style">
+  <h1 id="欢迎使用Markdown编辑器"><a href="#欢迎使用Markdown编辑器" class="headerlink" title="欢迎使用Markdown编辑器"></a>欢迎使用Markdown编辑器</h1><p>在系统完全结束APP的服务之后，冷启动APP仿佛像是生孩子一般难受，尤其是之前版本的支付宝。不过还是要点名表扬一下支付宝，在后续版本尤其是最新的10.0以及之后版本，大力优化了冷启动速度，虽然整个APP还是很重，主页内容还是很多，但是不得不说启动速度的优化还是很明显的。</p>
+<p>下面是我工作中对APP启动速度优化的一些总结和看法：</p>
+<h2 id="一-去掉白屏背景"><a href="#一-去掉白屏背景" class="headerlink" title="一 / 去掉白屏背景"></a>一 / 去掉白屏背景</h2><p>首先，这个白屏背景是怎么来的呢？</p>
+<p>Android上古时代，APP启动速度几乎只收到了硬件限制。后来，因为ios规定所有APP必须要有闪屏页，切闪屏页需要有图标相对应的内容。这样就使得在打开APP时，非线性动画配合貌似LOGO直接飞到屏幕中间的假效果看起来非常顺滑。Android虽然没有这个规定，但是两端毕竟应该统一。于是，就有了Android闪屏页，其实也就是默认主题的白屏的那一下，它实际上也是用来承接APP打开动效或者欢迎页面的（可以参考现版本的Twitter）。</p>
+<p>这个不是我乱猜的，实际上Android是给了开发者打开APP时闪屏页显示内容的。这个白色背景就是你主题中<code>windowBackground</code>这个属性来控制的。具体方法:</p>
+<p>首先我们需要定义一个XML文件，放置layer-list(图层列表/布局列表，具体使用可以百度)的内容。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">layer-list</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:opacity</span>=<span class="string">&quot;opaque&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--给背景透明值，避免颜色闪烁，如果不设置，那么可能会有默认背景色和下面这个属性的一下闪烁交换的情况--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">android:drawable</span>=<span class="string">&quot;@android:color/black&quot;</span> /&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--设置默认背景颜色--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">bitmap</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:gravity</span>=<span class="string">&quot;center&quot;</span></span></span><br><span class="line"><span class="tag">            <span class="attr">android:src</span>=<span class="string">&quot;@mipmap/logo&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--放置logo--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">layer-list</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后直接在你自定义的Theme中使用android:windowBackground去用这个布局即可。</p>
+<p>再退一步说，你可能有自己更复杂的操作或者想法，要去掉这个页面使用自定义的页面，那么你只需要给你的Theme设置两个属性即可：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;android:windowIsTranslucent&quot;</span>&gt;</span>true<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;android:windowNoTitle&quot;</span>&gt;</span>true<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>或者一行代码：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">&quot;android:windowDisablePreview&quot;</span>&gt;</span>true<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这两种方法我都是不排斥的并且我也有使用过，但是还是推荐按照官方的标准来进行开发。再退一步，请看标题，本文讲的是APP的启动速度优化…</p>
+<h2 id="二-及时结束onCreat-方法"><a href="#二-及时结束onCreat-方法" class="headerlink" title="二 / 及时结束onCreat()方法"></a>二 / 及时结束<code>onCreat()</code>方法</h2><p>直到今天，在我们的APP中还存在大量把所有第三方组件初始化工作全部放在onCreat()中的情况。说真的，这个其实是 <a target="_blank" rel="noopener" href="https://developer.android.com/topic/performance/vitals/launch-time#internals">官方唯一给出需要优化启动速度的切入点……</a></p>
+<p>解决方法无非就三种</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">异步加载，delay加载，按需加载</span><br></pre></td></tr></table></figure>
+
+<p>据我观察，京东APP几乎就用过了上面所有的方法…老版JD中，在初次打开APP时，是不会对一些插件进行加载的。然后在用户退出主页面之后，再次打开时会进行加载（这里要说明一下，如果APP中存在多进程，需要在主进程中加载）并且下载一些SO库（这个操作可以减小APP体积，但是你们要有自己的高速静态空间来保证后续访问）。但是新版京东APP中在首次打开就会delay一下，然后直接下载SO库、加载第三方插件。</p>
+<p>虽然两种切换方式效果几乎没变，但是第一种情况导致的结果就是：我首次打开京东APP，登录页面没有QQ登录…需要退出重新打开才会显示…</p>
+<p>实际上这几种方式不冲突，且可以共存。除了框架开发者要求或者自己使用需要的内容在Application的onCreat()中加载外，像是一些统计插件或者必须插件，建议在启动时进行异步加载；一些非必须功能插件或者登录之后使用功能的插件，建议delay一些时间再进行加载；一些非必须交互或者单页面插件（地图这些），建议按需加载。</p>
+<h2 id="三-假加速，‘但是肉眼可见的快了’"><a href="#三-假加速，‘但是肉眼可见的快了’" class="headerlink" title="三 / 假加速，‘但是肉眼可见的快了’"></a>三 / 假加速，‘但是肉眼可见的快了’</h2><p>有一次我负责基础框架部分，我因为失误把启动页指向首页。被组长发现后问我为什么这么写，我说我要再首页中启动闪屏页。又问为什么这么写，这和大家的开发习惯不同。</p>
+<p>我说：在首页做任何操作之前，就在首页启动闪屏页。这样几乎没有增加任何时间，并且可以在打开闪屏页的时候加载首页的数据，这样可以减少用户打开首页的等待时间，这启动速度肉眼可见得快了。说完我当场试了一下，明显没有首页缓冲数据的那一下等待数据的白色页面时间…（说真的，我是临时编的）。</p>
+<p>也就是说，最初是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">原来是：APP启动-&gt;启动闪屏页-&gt;闪屏页展示-&gt;闪屏页结束-&gt;首页-&gt;首页加载数据</span><br><span class="line"></span><br><span class="line">改变成：APP启动-&gt;首页-&gt;启动闪屏页-&gt;闪屏页展示，同时首页加载数据-&gt;闪屏页结束</span><br></pre></td></tr></table></figure>
+
+<p>但是我现在还会这么写…即使首页有缓存的情况下…</p>
+<p>虽然这并不是启动加速，但是他就是加速了，我不管。</p>
+<h2 id="四-MultiDex在5-0之下的问题"><a href="#四-MultiDex在5-0之下的问题" class="headerlink" title="四 / MultiDex在5.0之下的问题"></a>四 / MultiDex在5.0之下的问题</h2><pre><code>U1S1，MultiDex就是个大坑，就是个为了打补丁，结果补丁上有个大坑的那种坑。</code></pre>
+<p>5.0以上的系统不需要在意这个问题，也就是说如果你的安装要求版本&gt;20，那么这篇文章到这里就结束了。 因为5.0之后在安装APK时就会对MultiDex进行了优化，所以<code>Multidex.install(this);</code>几乎不会占用什么时间。</p>
+<p>在5.0以下的系统中， MultiDex （<a target="_blank" rel="noopener" href="https://developer.android.com/studio/build/multidex#mdex-pre-l">官方给出的MultiDex在5.0以下使用需要的设置</a>） 就是噩梦…尤其是在老版本或者低配置的设备中，<code>Multidex.install(this);</code>占用的时间远远超过了ANR的反应时间，直接导致了ANR，进不了闪屏页…</p>
+<p>因为现在5.0以下的用户真不多了，我也不想写了。大致思路就是在启动之后hold住主线程，然后异步进程进行dexopt操作，待结束之后发标记回来继续启动APP就可以了。</p>
+<p>这里推荐两个文章，写的都不错：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/synaric/article/details/53540760">https://blog.csdn.net/synaric/article/details/53540760</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/1a7d8f449b77">https://www.jianshu.com/p/1a7d8f449b77</a></p>
+<p>除此之外，推荐阅读：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzAwNDY1ODY2OQ==&amp;mid=207151651&amp;idx=1&amp;sn=9eab282711f4eb2b4daf2fbae5a5ca9a&amp;3rd=MzA3MDU4NTYzMw==&amp;scene=6#rd%20Android%E6%8B%86%E5%88%86%E4%B8%8E%E5%8A%A0%E8%BD%BDDex%E7%9A%84%E5%A4%9A%E7%A7%8D%E6%96%B9%E6%A1%88%E5%AF%B9%E6%AF%94">https://mp.weixin.qq.com/s?__biz=MzAwNDY1ODY2OQ==&amp;mid=207151651&amp;idx=1&amp;sn=9eab282711f4eb2b4daf2fbae5a5ca9a&amp;3rd=MzA3MDU4NTYzMw==&amp;scene=6#rd%20Android%E6%8B%86%E5%88%86%E4%B8%8E%E5%8A%A0%E8%BD%BDDex%E7%9A%84%E5%A4%9A%E7%A7%8D%E6%96%B9%E6%A1%88%E5%AF%B9%E6%AF%94</a></p>
+<p>原文来自我的博客: <a target="_blank" rel="noopener" href="https://96mb.io/">https://96mb.io</a> 一个搭建在96mb内存主机上的博客</p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+
+    
+    <p>last update time 2020-07-31</p>
+    
+    
+        <a class="extend next post-next" href="/hello-world/">next</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:yigekaifa@gmail.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © 一个开发 2020
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

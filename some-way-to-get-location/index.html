@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" sizes="any" mask="" href="./logo.png">
+<link rel="apple-touch-icon" sizes="180x180" href="./logo-dark.png">
+<link rel="icon" type="image/png" sizes="32x32" href="./logo.png">
+<link rel="icon" type="image/png" sizes="16x16" href="./logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>Android中几种定位方式的粗解 [ 一个开发 ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+<meta name="generator" content="Hexo 5.0.0"></head>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/logo.png"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">Home</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">Archives</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">Android中几种定位方式的粗解</h1>
+<article class="post markdown-style">
+  <p>之前朋友问我Tiktok为什么禁用了定位，开启了全局代理，还是可以获取到位置。当时想法只有一个：基站定位。我让他在设置里关掉移动服务（关闭手机卡）之后，确实可以正常使用了。</p>
+<p>这里简单说一下Android中集中定位方式。</p>
+<a id="more"></a>
+
+<blockquote>
+<p>这里是在Android10添加的新权限，在后台获取位置：<a target="_blank" rel="noopener" href="https://developer.android.com/reference/android/Manifest.permission.html#ACCESS_BACKGROUND_LOCATION">https://developer.android.com/reference/android/Manifest.permission.html#ACCESS_BACKGROUND_LOCATION</a></p>
+</blockquote>
+<h2 id="1-GPS"><a href="#1-GPS" class="headerlink" title="1. GPS"></a>1. GPS</h2><p>权限（注意版本变化）：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">&quot;android.permission.ACCESS_FINE_LOCATION&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">&quot;android.permission.ACCESS_COARSE_LOCATION&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>具体定位代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> locManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager</span><br><span class="line"><span class="keyword">var</span> loc = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)</span><br><span class="line"><span class="keyword">if</span>(loc != <span class="keyword">null</span>)&#123;</span><br><span class="line">    Log.e(<span class="string">&quot;gpslocation&quot;</span>, loc.toString())</span><br><span class="line">    toast(loc.toString())</span><br><span class="line">&#125;</span><br><span class="line">locManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, <span class="number">0</span>, <span class="number">0F</span>, object : LocationListener&#123;</span><br><span class="line">    <span class="function">override fun <span class="title">onStatusChanged</span><span class="params">(provider: String?, status: Int, extras: Bundle?)</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function">override fun <span class="title">onProviderEnabled</span><span class="params">(provider: String?)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function">override fun <span class="title">onProviderDisabled</span><span class="params">(provider: String?)</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="function">override fun <span class="title">onLocationChanged</span><span class="params">(location: Location?)</span> </span>&#123;</span><br><span class="line">        Log.e(<span class="string">&quot;gpslocation&quot;</span>, location.toString())</span><br><span class="line">        toast(location.toString())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-Network获取位置"><a href="#2-Network获取位置" class="headerlink" title="2. Network获取位置"></a>2. Network获取位置</h3><p>与GPS定位相同，代码都一样。只是申请权限不同。并且在室内时，GPS需要一定时间来定位，而Network在网络状况不好时不可用。</p>
+<h3 id="3-IP"><a href="#3-IP" class="headerlink" title="3. IP"></a>3. IP</h3><p>APP通过对当前IP的分析，可以得到你大致的位置。一般不采用这种方案，IP太容易被伪装。</p>
+<h3 id="4-WiFi（WLAN）定位"><a href="#4-WiFi（WLAN）定位" class="headerlink" title="4. WiFi（WLAN）定位"></a>4. WiFi（WLAN）定位</h3><p>需要权限：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">&quot;android.permission.ACCESS_WIFI_STATE&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这个也比较简单，就是过程就是拿到当前的WiFi信息，然后通过mac地址（BSSID）进行查询。具体查询的接口可以去聚合数据搜索一下，这里不再多说。</p>
+<h3 id="5-基站定位"><a href="#5-基站定位" class="headerlink" title="5. 基站定位"></a>5. 基站定位</h3><p>这个要稍微说一下。在你关闭了所有定位传感器之后，如果你的手机还是处于有服务的状态下，就可以进行大概定位。通过TelephonyManager获取当前手机信号的基站信息。可以定位到大概区以下的位置。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MCC，Mobile Country Code，移动国家代码（中国的为460）</span><br><span class="line">MNC，Mobile Network Code，移动网络号码（中国移动为00，中国联通为01）</span><br><span class="line">LAC，Location Area Code，位置区域码</span><br><span class="line">CID，Cell Identity，基站编号，是个16位的数据（范围是0到65535）</span><br></pre></td></tr></table></figure>
+
+<p>看似类型繁多，但是实际用起来用处不是很多。建议大家还是用第三方定位库吧，简单精准还好用。</p>
+<p>参考文章</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.android.com/guide/topics/location/strategies">https://developer.android.com/guide/topics/location/strategies</a></p>
+</blockquote>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/some-changes-for-tablayout/">prev</a>
+    
+
+    
+    <p>last update time 2020-03-12</p>
+    
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:yigekaifa@gmail.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © 一个开发 2020
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>
