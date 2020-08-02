@@ -9,7 +9,7 @@
 <link rel="icon" type="image/png" sizes="16x16" href="./logo.png">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   
-  <title> [ 一个开发 ]</title>
+  <title>免费 ROOT 卸载 Android 预装软件的思路和实现 [ 一个开发 ]</title>
   
     <!-- stylesheets list from config.yml -->
     
@@ -51,89 +51,33 @@
 </div>
     </div>
     <div class="container">
-        
+        <h1 class="post-title">免费 ROOT 卸载 Android 预装软件的思路和实现</h1>
+<article class="post markdown-style">
+  <p>苦于各种预装软件垃圾还不给卸载，这边文章被写了出来。（虽然后来我发现有很多）</p>
+<p>首先，从 Android 4.2 开始，设备可以支持多用户，说到这里其实聪明的小朋友已经知道怎么实现了：</p>
+<p>卸载当前用户的预装 APP 这种方法用 adb shell 的命令就可以实现，所以你需要提前准备 ADB 工具。具体只需要一行简单的命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell pm uninstall --user 0 应用包名</span><br></pre></td></tr></table></figure>
+<p>APP 的包名你需要到系统设置-&gt;软件设置-&gt;具体的软件页面去寻找，MIUI 是在右上角的叹号里(或者 MIUI11 之后的版本，你可以长安桌面图标，然后点击弹窗上的小叹号，再点击右上角的小叹号查看)。其他不同的系统不多说明。如果你需要安装回来，只需要使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">adb shell pm install --user 0 应用包名</span><br></pre></td></tr></table></figure>
 
+<p>说一下：</p>
+<p>实际上是卸载掉了，但是只是针对当前用户。如果你切换用户，需要卸载其他用户的 APP 。这个 APP 实际还存在你的prev-app(预装软件)区域内，但他不同于系统的停用操作，是真实卸载掉了的。</p>
+<p>EMUI 和 MIUI的脚本下载地址</p>
+<p>链接:<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1gSwPkZLcGguIjaJmtENCHg">https://pan.baidu.com/s/1gSwPkZLcGguIjaJmtENCHg</a> 提取码:d43f 复制这段内容后打开百度网盘手机 App，操作更方便哦</p>
 
+</article>
 
-  <div class="article">
+    <div class="pagenator post-pagenator">
     
-      <div class="article-item">
-        <h2 class="article-item-header">
-          <a href="/Dev/some-changes-for-tablayout.html">
-            TabLayout的简单修改
-          </a>
-        </h2>
-        <div class="article-item-content">
-          
-            <p>设计稿上的tab布局我用了design库的tablayout，根据设计上的图来看，选中的tab要是粗体，下方横线等宽于字体。
-
-
-问题1：TabLayout无法控制当前选中的行的字体解决方案：setCustomView() 。
-首先写一个方法，用来返回每个tab的view：
-123456public...</p>
-          
-        </div>
-        <div class="atricle-item-time">
-          
-            <span>
-              2020-03-10
-            </span>
-          
-        </div>
-      </div>
-    
-      <div class="article-item">
-        <h2 class="article-item-header">
-          <a href="/Dev/some-way-to-get-location.html">
-            Android中几种定位方式的粗解
-          </a>
-        </h2>
-        <div class="article-item-content">
-          
-            <p>之前朋友问我Tiktok为什么禁用了定位，开启了全局代理，还是可以获取到位置。当时想法只有一个：基站定位。我让他在设置里关掉移动服务（关闭手机卡）之后，确实可以正常使用了。
-这里简单说一下Android中集中定位方式。
-
-
-
-这里是在Android10添加的新权限，在后台获取位置：https://d...</p>
-          
-        </div>
-        <div class="atricle-item-time">
-          
-            <span>
-              2020-03-10
-            </span>
-          
-        </div>
-      </div>
-    
-  </div>
-
-
-
-    <div class="pagenator">
-    
-    
-        <a class="extend prev" href="/">前のページ</a>
     
 
     
-        
-        
-            <a class="extend page-item page-item-normal" href="/">1</a>
-        
-    
-        
-            <span class="extend page-item page-item-select">2</span>
-        
-        
+    <p>前回の更新 2020-08-02</p>
     
     
+        <a class="extend next post-next" href="/post/cold-launch-faster.html">次の章</a>
     
-        <a class="extend next-none">次のページ</a>
-    
-    
-</div>
+    </div>
 
     </div>
     <div class="footer">

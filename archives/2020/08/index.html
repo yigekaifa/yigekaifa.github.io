@@ -9,7 +9,7 @@
 <link rel="icon" type="image/png" sizes="16x16" href="./logo.png">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   
-  <title>两个方法解决git clone慢的问题 [ 一个开发 ]</title>
+  <title>Archives: 8/2020: 2020 [ 一个开发 ]</title>
   
     <!-- stylesheets list from config.yml -->
     
@@ -51,41 +51,101 @@
 </div>
     </div>
     <div class="container">
-        <h1 class="post-title">两个方法解决git clone慢的问题</h1>
-<article class="post markdown-style">
-  <p>国内本来就没有git的服务器，所以访问超慢<br>尤其是在个别运营商的加持下，速度更是慢到令人发指。所以我就总结了两个方法来解决这个问题。</p>
-<a id="more"></a>
-<h2 id="方法一：使用gitee复制仓库，然后克隆gitee的仓库-推荐"><a href="#方法一：使用gitee复制仓库，然后克隆gitee的仓库-推荐" class="headerlink" title="方法一：使用gitee复制仓库，然后克隆gitee的仓库[推荐]"></a>方法一：使用gitee复制仓库，然后克隆gitee的仓库[推荐]</h2><p>在登陆<a target="_blank" rel="noopener" href="https://gitee.com/">gitee.com</a> 之后，在右上角的加号里点击添加仓库，然后直接往下滑动。</p>
-<p>在下面可以看到</p>
-<p><img src="../img/2.png"></p>
-<p>然后点击<a href="">导入已有仓库</a>之后，在下面输入你需要克隆的仓库即可。</p>
-<p><img src="../img/3.png"></p>
-<blockquote>
-<p>注意：这里如果系统提示你，当前已经存在克隆的仓库，为了避免已经存在的复制仓库有修改或者长时间未更新的情况，建议忽略提示。</p>
-</blockquote>
-<p>优点：方便快捷，而且几十M的库克隆基本都是满速</p>
-<p>问题：个别脚本内置的地址为github的地址，手动修改内容量太大</p>
-<h2 id="方法二：使用代理"><a href="#方法二：使用代理" class="headerlink" title="方法二：使用代理"></a>方法二：使用代理</h2><p>我们在打开代理之后，一般命令行工具是不走代理的，需要手动设置一下，这里我们用<code>powershell</code>做参考</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注意，这里后面的1080为你的代理的端口，SS和SSR一般为1080,CLASH一般为7891，具体看个人设置</span></span><br><span class="line"><span class="variable">$env</span>:HTTPS_PROXY=<span class="string">&quot;http://127.0.0.1:1080&quot;</span></span><br><span class="line"><span class="variable">$env</span>:HTTP_PROXY=<span class="string">&quot;http://127.0.0.1:1080&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>如果不知道自己的代理端口是多少的话，windows下：设置-网络和Intetnet-代理-右面下方有端口显示</p>
-
-</article>
-
-    <div class="pagenator post-pagenator">
+        <div class="article">
+      
     
-    
-        <a class="extend prev post-prev" href="/hello-world/">前の章</a>
-    
-
-    
-    <p>前回の更新 2020-03-12</p>
-    
-    
-        <a class="extend next post-next" href="/nodejs-change-source/">次の章</a>
-    
-    </div>
-
+      <div class="year-list">
+        <h3>2020</h3>
+        <ul>
+          
+            <li >
+              <time>2020-08-02</time>
+              <a href="/post/unroot-device-uninstall-prv-apps.html">
+                免费 ROOT 卸载 Android 预装软件的思路和实现
+              </a>
+            </li>
+          
+            <li >
+              <time>2020-07-31</time>
+              <a href="/post/cold-launch-faster.html">
+                提高APP冷启动速度小结
+              </a>
+            </li>
+          
+            <li >
+              <time>2020-07-31</time>
+              <a href="/post/hello-world.html">
+                Hello World
+              </a>
+            </li>
+          
+            <li >
+              <time>2020-03-12</time>
+              <a href="/Note/how-to-clone-git-faster.html">
+                两个方法解决git clone慢的问题
+              </a>
+            </li>
+          
+            <li >
+              <time>2020-03-12</time>
+              <a href="/Note/nodejs-change-source.html">
+                npm切换淘宝源
+              </a>
+            </li>
+          
+            <li >
+              <time>2020-03-11</time>
+              <a href="/Note/script-cant-run-on-powershell.html">
+                PowerShell禁止执行脚本的解决方法
+              </a>
+            </li>
+          
+            <li >
+              <time>2020-03-11</time>
+              <a href="/Note/dd-cmd-on-linux.html">
+                Linux下DD命令进度查看
+              </a>
+            </li>
+          
+            <li >
+              <time>2020-03-11</time>
+              <a href="/Dev/edittext-with-clear-icon.html">
+                自带清除内容功能的EditText
+              </a>
+            </li>
+          
+            <li >
+              <time>2020-03-10</time>
+              <a href="/Dev/listen-all-edittext-in-your-layout.html">
+                监听布局内所有的EditText
+              </a>
+            </li>
+          
+            <li >
+              <time>2020-03-10</time>
+              <a href="/Dev/startwithpop-close-both-fragment.html">
+                startWithPop()出现两个Fragment都退出的情况
+              </a>
+            </li>
+          
+            <li >
+              <time>2020-03-10</time>
+              <a href="/Dev/some-changes-for-tablayout.html">
+                TabLayout的简单修改
+              </a>
+            </li>
+          
+            <li >
+              <time>2020-03-10</time>
+              <a href="/Dev/some-way-to-get-location.html">
+                Android中几种定位方式的粗解
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+     
+</div>
     </div>
     <div class="footer">
         <div class="container">

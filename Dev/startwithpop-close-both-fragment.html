@@ -9,7 +9,7 @@
 <link rel="icon" type="image/png" sizes="16x16" href="./logo.png">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   
-  <title>npm切换淘宝源 [ 一个开发 ]</title>
+  <title>startWithPop()出现两个Fragment都退出的情况 [ 一个开发 ]</title>
   
     <!-- stylesheets list from config.yml -->
     
@@ -51,38 +51,29 @@
 </div>
     </div>
     <div class="container">
-        <h1 class="post-title">npm切换淘宝源</h1>
+        <h1 class="post-title">startWithPop()出现两个Fragment都退出的情况</h1>
 <article class="post markdown-style">
-  <p>全局配置切换到淘宝源</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
+  <p>有时候<code>startWithPop()</code>会出现两个<code>Fragment</code>都出栈的情况，一般当前<code>fragment</code>是RootView的时候会出现这个情况。</p>
 <a id="more"></a>
 
-<p>临时使用淘宝源</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm --registry https://registry.npm.taobao.org install node-red-contrib-composer@latest</span><br></pre></td></tr></table></figure>
-
-<p>全局配置切换到官方源</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry http://www.npmjs.org</span><br></pre></td></tr></table></figure>
-<p>检测是否切换到了淘宝源</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm info underscore</span><br></pre></td></tr></table></figure>
-
-<p>另外：</p>
-<blockquote>
-<p>默认的npm下载地址：<a target="_blank" rel="noopener" href="http://www.npmjs.org/">http://www.npmjs.org/</a><br>淘宝npm镜像的地址：<a target="_blank" rel="noopener" href="https://npm.taobao.org/">https://npm.taobao.org/</a><br>你也可以使用CNPM：<a target="_blank" rel="noopener" href="https://cnpmjs.org/">https://cnpmjs.org</a></p>
-</blockquote>
+<p>解决方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">((BaseFragment) getParentFragment()).start(toFragment);</span><br></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">popTo(A.class,<span class="keyword">true</span>,<span class="keyword">new</span> Runnable()&#123;</span><br><span class="line">       <span class="meta">@Override</span></span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            start(B);</span><br><span class="line">       &#125;</span><br><span class="line">&#125;,getFragmentAnimator().getPopExit()); <span class="comment">// getFragmentAnimator().getPopExit() 代表popTo时的动画</span></span><br></pre></td></tr></table></figure>
 
 </article>
 
     <div class="pagenator post-pagenator">
     
     
-        <a class="extend prev post-prev" href="/how-to-clone-git-faster/">前の章</a>
+        <a class="extend prev post-prev" href="/Dev/listen-all-edittext-in-your-layout.html">前の章</a>
     
 
     
     <p>前回の更新 2020-03-12</p>
     
     
-        <a class="extend next post-next" href="/script-cant-run-on-powershell/">次の章</a>
+        <a class="extend next post-next" href="/Dev/some-changes-for-tablayout.html">次の章</a>
     
     </div>
 

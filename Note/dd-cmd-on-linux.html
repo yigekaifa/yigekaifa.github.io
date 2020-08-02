@@ -9,7 +9,7 @@
 <link rel="icon" type="image/png" sizes="16x16" href="./logo.png">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   
-  <title>Hello World [ 一个开发 ]</title>
+  <title>Linux下DD命令进度查看 [ 一个开发 ]</title>
   
     <!-- stylesheets list from config.yml -->
     
@@ -51,35 +51,27 @@
 </div>
     </div>
     <div class="container">
-        <h1 class="post-title">Hello World</h1>
+        <h1 class="post-title">Linux下DD命令进度查看</h1>
 <article class="post markdown-style">
-  <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
+  <p>在Ubuntu 系统上执行如下命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dd if=/img.iso of=/dev/mydevice bs=10M count=100000</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>有的时候，可能会非常耗时，这个时候，如果让dd命令输出执行进度信息，会非常有用。</p>
+<p>重新打开一个Shell，然后执行如下命令即可每秒输出一次进度信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">watch -n 1 pkill -USR1 -x dd</span><br></pre></td></tr></table></figure>
 </article>
 
     <div class="pagenator post-pagenator">
     
     
-        <a class="extend prev post-prev" href="/cold-launch-faster/">前の章</a>
+        <a class="extend prev post-prev" href="/Note/script-cant-run-on-powershell.html">前の章</a>
     
 
     
-    <p>前回の更新 2020-07-31</p>
+    <p>前回の更新 2020-03-12</p>
     
     
-        <a class="extend next post-next" href="/how-to-clone-git-faster/">次の章</a>
+        <a class="extend next post-next" href="/Dev/edittext-with-clear-icon.html">次の章</a>
     
     </div>
 

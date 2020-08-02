@@ -9,7 +9,7 @@
 <link rel="icon" type="image/png" sizes="16x16" href="./logo.png">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   
-  <title>startWithPop()出现两个Fragment都退出的情况 [ 一个开发 ]</title>
+  <title>PowerShell禁止执行脚本的解决方法 [ 一个开发 ]</title>
   
     <!-- stylesheets list from config.yml -->
     
@@ -51,29 +51,30 @@
 </div>
     </div>
     <div class="container">
-        <h1 class="post-title">startWithPop()出现两个Fragment都退出的情况</h1>
+        <h1 class="post-title">PowerShell禁止执行脚本的解决方法</h1>
 <article class="post markdown-style">
-  <p>有时候<code>startWithPop()</code>会出现两个<code>Fragment</code>都出栈的情况，一般当前<code>fragment</code>是RootView的时候会出现这个情况。</p>
-<a id="more"></a>
+  <p>如果出现类似下面的提示：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">无法加载文件 ******.xxx，因为在此系统中禁止执行脚本。有关详细信息，请参阅 <span class="string">&quot;get-help about_signing&quot;</span>。</span><br><span class="line">所在位置 行:1 字符: 17</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>解决方法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">((BaseFragment) getParentFragment()).start(toFragment);</span><br></pre></td></tr></table></figure>
-<p>或者</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">popTo(A.class,<span class="keyword">true</span>,<span class="keyword">new</span> Runnable()&#123;</span><br><span class="line">       <span class="meta">@Override</span></span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            start(B);</span><br><span class="line">       &#125;</span><br><span class="line">&#125;,getFragmentAnimator().getPopExit()); <span class="comment">// getFragmentAnimator().getPopExit() 代表popTo时的动画</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>运行<code>Get-ExecutionPolicy</code>。如果返回<code>Restricted</code>，然后运行<code>set-ExecutionPolicy RemoteSigned</code></p>
+<p>然后就可以运行命令了。</p>
+<p>另外如果还不能执行，例如你npm安装的一些命令不能运行，那么请你把<code>C:\Users\用户名\AppData\Roaming\npm</code>添加到系统变量<code>Path</code>里面。</p>
 
 </article>
 
     <div class="pagenator post-pagenator">
     
     
-        <a class="extend prev post-prev" href="/listen-all-edittext-in-your-layout/">前の章</a>
+        <a class="extend prev post-prev" href="/Note/nodejs-change-source.html">前の章</a>
     
 
     
     <p>前回の更新 2020-03-12</p>
     
     
-        <a class="extend next post-next" href="/some-changes-for-tablayout/">次の章</a>
+        <a class="extend next post-next" href="/Note/dd-cmd-on-linux.html">次の章</a>
     
     </div>
 
