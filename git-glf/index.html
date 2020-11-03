@@ -66,14 +66,14 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="问题出现"><a href="#问题出现" class="headerlink" title="问题出现"></a>问题出现</h2><p>在开发中，一般会有这样的情况，我们需要给同事发一个文件的静态下载地址。通常的选择我们公司都会有自己的samba服务器，但是个别情况下我们会使用git上传后发给对方。</p>
+        <h2 id="问题出现"><a href="/git-glf/#问题出现" class="headerlink" title="问题出现"></a>问题出现</h2><p>在开发中，一般会有这样的情况，我们需要给同事发一个文件的静态下载地址。通常的选择我们公司都会有自己的samba服务器，但是个别情况下我们会使用git上传后发给对方。</p>
 <p>如果你的文件过大，系统会报错提示：</p>
 <a id="more"></a>
 
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">fatal: The remote end hung up unexpectedly</span><br></pre></td></tr></table></figure>
 
 <p>大概意思就是说服务器断开，基本上都是因为服务器或git的限制，不允许传输过大的文件。这里有两种解决方法提供给大家</p>
-<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><h3 id="方法1：设置本地限制"><a href="#方法1：设置本地限制" class="headerlink" title="方法1：设置本地限制"></a>方法1：设置本地限制</h3><p>找到你的文档下.git文件夹，打开config文件</p>
+<h2 id="解决方法"><a href="/git-glf/#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><h3 id="方法1：设置本地限制"><a href="/git-glf/#方法1：设置本地限制" class="headerlink" title="方法1：设置本地限制"></a>方法1：设置本地限制</h3><p>找到你的文档下.git文件夹，打开config文件</p>
 <p>加入</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[http]</span><br><span class="line">postBuffer &#x3D; 524288000</span><br></pre></td></tr></table></figure>
 
@@ -81,9 +81,9 @@
 <p>###方法2：开启git大文件支持插件 git-lfs</p>
 <p>具体你可以查看git-lfs官网：<a href="https://git-lfs.github.com/" target="_blank" rel="noopener">https://git-lfs.github.com/</a></p>
 <p>或者跟着下面的步骤进行操作：</p>
-<h4 id="1-安装git-lfs"><a href="#1-安装git-lfs" class="headerlink" title="1.安装git-lfs"></a>1.安装git-lfs</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git lfs install</span><br></pre></td></tr></table></figure>
+<h4 id="1-安装git-lfs"><a href="/git-glf/#1-安装git-lfs" class="headerlink" title="1.安装git-lfs"></a>1.安装git-lfs</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git lfs install</span><br></pre></td></tr></table></figure>
 
-<h3 id="2-修改-gitattributes-文件，添加你需要支持的大文件"><a href="#2-修改-gitattributes-文件，添加你需要支持的大文件" class="headerlink" title="2.修改.gitattributes 文件，添加你需要支持的大文件"></a>2.修改.gitattributes 文件，添加你需要支持的大文件</h3><p>例如你需要添加mp4文件，那么你需要在git目录下输入下面的命令</p>
+<h3 id="2-修改-gitattributes-文件，添加你需要支持的大文件"><a href="/git-glf/#2-修改-gitattributes-文件，添加你需要支持的大文件" class="headerlink" title="2.修改.gitattributes 文件，添加你需要支持的大文件"></a>2.修改.gitattributes 文件，添加你需要支持的大文件</h3><p>例如你需要添加mp4文件，那么你需要在git目录下输入下面的命令</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git lfs track &quot;*.mp4&quot;</span><br><span class="line">&gt; Adding path *.mp4</span><br></pre></td></tr></table></figure>
 
 <p>注意，这里的.gitattributes请提交到服务器，以免提交大文件后发生冲突。<br>关联文件到你的仓库中</p>

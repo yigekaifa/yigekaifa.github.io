@@ -79,11 +79,8 @@
 <p>再退一步说，你可能有自己更复杂的操作或者想法，要去掉这个页面使用自定义的页面，那么你只需要给你的Theme设置两个属性即可：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;item name&#x3D;&quot;android:windowIsTranslucent&quot;&gt;true&lt;&#x2F;item&gt;</span><br><span class="line">&lt;item name&#x3D;&quot;android:windowNoTitle&quot;&gt;true&lt;&#x2F;item&gt;</span><br></pre></td></tr></table></figure>
 <p>或者一行代码：</p>
-<p><code>&lt;item name=&quot;android:windowDisablePreview&quot;&gt;true&lt;/item&gt;</code></p>
-<p>这两种方法我都是不排斥的并且我也有使用过，但是还是推荐按照官方的标准来进行开发。再退一步，请看标题，本文讲的是APP的启动速度优化…</p>
-<p>二 / 及时结束onCreat()方法<br>直到今天，在我们的APP中还存在大量把所有第三方组件初始化工作全部放在onCreat()中的情况。说真的，这个其实是 (官方唯一给出需要优化启动速度的切入点……)[<a href="https://developer.android.com/topic/performance/vitals/launch-time#internals]" target="_blank" rel="noopener">https://developer.android.com/topic/performance/vitals/launch-time#internals]</a></p>
-<p>解决方法无非就三种</p>
-<p><code>异步加载，delay加载，按需加载</code></p>
+<figure class="highlight plain"><figcaption><span>name</span></figcaption><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">这两种方法我都是不排斥的并且我也有使用过，但是还是推荐按照官方的标准来进行开发。再退一步，请看标题，本文讲的是APP的启动速度优化…</span><br><span class="line"></span><br><span class="line">二 &#x2F; 及时结束onCreat()方法</span><br><span class="line">直到今天，在我们的APP中还存在大量把所有第三方组件初始化工作全部放在onCreat()中的情况。说真的，这个其实是 (官方唯一给出需要优化启动速度的切入点……)[https:&#x2F;&#x2F;developer.android.com&#x2F;topic&#x2F;performance&#x2F;vitals&#x2F;launch-time#internals]</span><br><span class="line"></span><br><span class="line">解决方法无非就三种</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;异步加载，delay加载，按需加载</span><br></pre></td></tr></table></figure>
+
 <p>据我观察，京东APP几乎就用过了上面所有的方法…老版JD中，在初次打开APP时，是不会对一些插件进行加载的。然后在用户退出主页面之后，再次打开时会进行加载（这里要说明一下，如果APP中存在多进程，需要在主进程中加载）并且下载一些SO库（这个操作可以减小APP体积，但是你们要有自己的高速静态空间来保证后续访问）。但是新版京东APP中在首次打开就会delay一下，然后直接下载SO库、加载第三方插件。</p>
 <p>虽然两种切换方式效果几乎没变，但是第一种情况导致的结果就是：我首次打开京东APP，登录页面没有QQ登录…需要退出重新打开才会显示…</p>
 <p>实际上这几种方式不冲突，且可以共存。除了框架开发者要求或者自己使用需要的内容在Application的onCreat()中加载外，像是一些统计插件或者必须插件，建议在启动时进行异步加载；一些非必须功能插件或者登录之后使用功能的插件，建议delay一些时间再进行加载；一些非必须交互或者单页面插件（地图这些），建议按需加载。</p>
@@ -98,7 +95,7 @@
 </blockquote>
 <p>虽然这并不是启动加速，但是他就是加速了，我不管。</p>
 <p>四 / MultiDex在5.0之下的问题<br>U1S1，MultiDex就是个大坑，就是个为了打补丁，结果补丁上有个大坑的那种坑。<br>5.0以上的系统不需要在意这个问题，也就是说如果你的安装要求版本&gt;20，那么这篇文章到这里就结束了。 因为5.0之后在安装APK时就会对MultiDex进行了优化，所以Multidex.install(this);几乎不会占用什么时间。</p>
-<p>在5.0以下的系统中， MultiDex （(官方给出的MultiDex在5.0以下使用需要的设置)[<a href="https://developer.android.com/studio/build/multidex#mdex-pre-l]%EF%BC%89" target="_blank" rel="noopener">https://developer.android.com/studio/build/multidex#mdex-pre-l]）</a> 就是噩梦…尤其是在老版本或者低配置的设备中，Multidex.install(this);占用的时间远远超过了ANR的反应时间，直接导致了ANR，进不了闪屏页…</p>
+<p>在5.0以下的系统中， MultiDex （(官方给出的MultiDex在5.0以下使用需要的设置)[<a href="https://developer.android.com/studio/build/multidex#mdex-pre-l]）" target="_blank" rel="noopener">https://developer.android.com/studio/build/multidex#mdex-pre-l]）</a> 就是噩梦…尤其是在老版本或者低配置的设备中，Multidex.install(this);占用的时间远远超过了ANR的反应时间，直接导致了ANR，进不了闪屏页…</p>
 <p>因为现在5.0以下的用户真不多了，我也不想写了。大致思路就是在启动之后hold住主线程，然后异步进程进行dexopt操作，待结束之后发标记回来继续启动APP就可以了。</p>
 <p>这里推荐两个文章，写的都不错：</p>
 <p><a href="https://blog.csdn.net/synaric/article/details/53540760" target="_blank" rel="noopener">https://blog.csdn.net/synaric/article/details/53540760</a></p>

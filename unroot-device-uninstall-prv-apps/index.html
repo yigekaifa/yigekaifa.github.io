@@ -77,9 +77,8 @@
 <a id="more"></a>
 
 <p>卸载当前用户的预装 APP 这种方法用 adb shell 的命令就可以实现，所以你需要提前准备 ADB 工具。具体只需要一行简单的命令：</p>
-<p><code>adb shell pm uninstall --user 0 应用包名</code></p>
-<p>APP 的包名你需要到系统设置-&gt;软件设置-&gt;具体的软件页面去寻找，MIUI 是在右上角的叹号里(或者 MIUI11 之后的版本，你可以长安桌面图标，然后点击弹窗上的小叹号，再点击右上角的小叹号查看)。其他不同的系统不多说明。如果你需要安装回来，只需要使用</p>
-<p><code>adb shell pm install --user 0 应用包名</code></p>
+<figure class="highlight plain"><figcaption><span>shell pm uninstall --user 0 应用包名```</span></figcaption><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">APP 的包名你需要到系统设置-&gt;软件设置-&gt;具体的软件页面去寻找，MIUI 是在右上角的叹号里(或者 MIUI11 之后的版本，你可以长安桌面图标，然后点击弹窗上的小叹号，再点击右上角的小叹号查看)。其他不同的系统不多说明。如果你需要安装回来，只需要使用</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;adb shell pm install --user 0 应用包名</span><br></pre></td></tr></table></figure>
+
 <p>说一下：</p>
 <p>实际上是卸载掉了，但是只是针对当前用户。如果你切换用户，需要卸载其他用户的 APP 。这个 APP 实际还存在你的prev-app(预装软件)区域内，但他不同于系统的停用操作，是真实卸载掉了的。</p>
 <p>EMUI 和 MIUI的脚本下载地址</p>
