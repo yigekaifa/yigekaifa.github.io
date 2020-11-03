@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>git-glf | 一个开发</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+ 
+  
+    <link rel="icon" href="/../logo.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="一个开发" type="application/atom+xml">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://yigekaifa.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-git-glf" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="name">
+      git-glf
+    </h1>
+  
+
+        <div class="article-meta">
+          <a href="/git-glf/" class="article-date">
+  <time datetime="2020-11-03T09:37:57.000Z" itemprop="datePublished">2020-11-03</time>
+</a>
+          
+          
+        </div>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="问题出现"><a href="#问题出现" class="headerlink" title="问题出现"></a>问题出现</h2><p>在开发中，一般会有这样的情况，我们需要给同事发一个文件的静态下载地址。通常的选择我们公司都会有自己的samba服务器，但是个别情况下我们会使用git上传后发给对方。</p>
+<p>如果你的文件过大，系统会报错提示：</p>
+<a id="more"></a>
+
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">fatal: The remote end hung up unexpectedly</span><br></pre></td></tr></table></figure>
+
+<p>大概意思就是说服务器断开，基本上都是因为服务器或git的限制，不允许传输过大的文件。这里有两种解决方法提供给大家</p>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><h3 id="方法1：设置本地限制"><a href="#方法1：设置本地限制" class="headerlink" title="方法1：设置本地限制"></a>方法1：设置本地限制</h3><p>找到你的文档下.git文件夹，打开config文件</p>
+<p>加入</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[http]</span><br><span class="line">postBuffer &#x3D; 524288000</span><br></pre></td></tr></table></figure>
+
+<p>然后暴力push…</p>
+<p>###方法2：开启git大文件支持插件 git-lfs</p>
+<p>具体你可以查看git-lfs官网：<a href="https://git-lfs.github.com/" target="_blank" rel="noopener">https://git-lfs.github.com/</a></p>
+<p>或者跟着下面的步骤进行操作：</p>
+<h4 id="1-安装git-lfs"><a href="#1-安装git-lfs" class="headerlink" title="1.安装git-lfs"></a>1.安装git-lfs</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git lfs install</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-修改-gitattributes-文件，添加你需要支持的大文件"><a href="#2-修改-gitattributes-文件，添加你需要支持的大文件" class="headerlink" title="2.修改.gitattributes 文件，添加你需要支持的大文件"></a>2.修改.gitattributes 文件，添加你需要支持的大文件</h3><p>例如你需要添加mp4文件，那么你需要在git目录下输入下面的命令</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git lfs track &quot;*.mp4&quot;</span><br><span class="line">&gt; Adding path *.mp4</span><br></pre></td></tr></table></figure>
+
+<p>注意，这里的.gitattributes请提交到服务器，以免提交大文件后发生冲突。<br>关联文件到你的仓库中</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git add path&#x2F;to&#x2F;file.mp4</span><br></pre></td></tr></table></figure>
+
+<p>最后commit，push即可，一般在push的时候会有个上传进度。</p>
+
+      
+    </div>
+  </div>
+ 
+</article>
+
+</section>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 一个开发<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> | Theme by  <a href="https://github.com/FuShaoLei/hexo-theme-hiya" target="_blank">Hiya</a>
+      
+        <br>
+        <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+      <span id="busuanzi_container_site_uv">
+        访客数<span id="busuanzi_value_site_uv"></span>人次
+      </span>
+        
+      
+    </div>
+    
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/,home" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives,archive" class="mobile-nav-link">归档</a>
+  
+</nav>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script>
+    feather.replace()
+</script>
+
+<script src="/js/script.js"></script>
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>监听布局内所有的EditText | 一个开发</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+ 
+  
+    <link rel="icon" href="/../logo.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="一个开发" type="application/atom+xml">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://yigekaifa.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-listen-all-edittext-in-your-layout" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="name">
+      监听布局内所有的EditText
+    </h1>
+  
+
+        <div class="article-meta">
+          <a href="/listen-all-edittext-in-your-layout/" class="article-date">
+  <time datetime="2020-03-10T15:49:23.000Z" itemprop="datePublished">2020-03-10</time>
+</a>
+          
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Dev/">Dev</a>
+  </div>
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CustomView/" rel="tag">CustomView</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Edittext/" rel="tag">Edittext</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ViewGroup/" rel="tag">ViewGroup</a></li></ul>
+
+        </div>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>当出现布局内有N个输入框且需要同步监听，例如你需要监听用户输入所有内容之后才可以点击下一步的控件，你可以试试下面这个控件。</p>
+<a id="more"></a>
+
+<h2 id="1-获取子view"><a href="#1-获取子view" class="headerlink" title="1. 获取子view"></a>1. 获取子view</h2><p>编历布局，看当前布局有几个<code>EditText</code>,然后去监听拿到<code>focus</code>的<code>view</code></p>
+<p>获取子<code>view</code>的方式：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 遍历viewGroup</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">traverseViewGroup</span><span class="params">(View view)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> viewCount = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> == view) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (view <span class="keyword">instanceof</span> ViewGroup) &#123;</span><br><span class="line">            <span class="comment">//遍历ViewGroup,是子view加1，是ViewGroup递归调用</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; ((ViewGroup) view).getChildCount(); i++) &#123;</span><br><span class="line">                View child = ((ViewGroup) view).getChildAt(i);</span><br><span class="line">                <span class="keyword">if</span> (child <span class="keyword">instanceof</span> ViewGroup) &#123;</span><br><span class="line">                    viewCount += traverseViewGroup(((ViewGroup) view).getChildAt(i));</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    viewCount++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            viewCount++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> viewCount;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>非递归方法获取子<code>view</code>：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 遍历viewGroup</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">traverseViewGroup</span><span class="params">(View view)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">int</span> viewCount = <span class="number">0</span>;</span><br><span class="line">       <span class="keyword">if</span> (<span class="keyword">null</span> == view) &#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">if</span> (view <span class="keyword">instanceof</span> ViewGroup) &#123;</span><br><span class="line">           ViewGroup viewGroup = (ViewGroup) view;</span><br><span class="line">           LinkedList&lt;ViewGroup&gt; linkedList = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">           linkedList.add(viewGroup);</span><br><span class="line">           <span class="keyword">while</span> (!linkedList.isEmpty()) &#123;</span><br><span class="line">               <span class="comment">//removeFirst()删除第一个元素，并返回该元素</span></span><br><span class="line">               ViewGroup current = linkedList.removeFirst();</span><br><span class="line">               viewCount++;</span><br><span class="line">               <span class="comment">//遍历linkedList中第一个viewGroup中的子view</span></span><br><span class="line">               <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; current.getChildCount(); i++) &#123;</span><br><span class="line">                   <span class="keyword">if</span> (current.getChildAt(i) <span class="keyword">instanceof</span> ViewGroup) &#123;</span><br><span class="line">                       linkedList.addLast((ViewGroup) current.getChildAt(i));</span><br><span class="line">                   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                       viewCount++;</span><br><span class="line">                   &#125;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">           viewCount++;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> viewCount;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>获取到子<code>view</code>的时候，你需要判断这个子<code>view</code>是不是<code>EditText</code>，方法有两种：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">v.getClassName() == <span class="string">&quot;EditText&quot;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">v <span class="keyword">instanceof</span> Button</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-拿到子view之后："><a href="#2-拿到子view之后：" class="headerlink" title="2. 拿到子view之后："></a>2. 拿到子view之后：</h2><p>方法1. 拿到子<code>view</code>之后，不需要每个都去监听（当然你也可以这么做），另外一种，判断在<code>viewgroup</code>中哪个子<code>view</code>获取到了焦点，然后给他添加监听，其他的移除监听。</p>
+<p>然后给设置的按钮去设置<code>enable</code></p>
+<p>方法2. LiveData监听数据变化，但是和上面的方式换汤不换药，代码量更多了一点。LiveData的具体使用可以参考： <a href="https://developer.android.google.cn/reference/android/arch/lifecycle/LiveData" target="_blank" rel="noopener">https://developer.android.google.cn/reference/android/arch/lifecycle/LiveData</a></p>
+<h3 id="需要完成的内容："><a href="#需要完成的内容：" class="headerlink" title="需要完成的内容："></a>需要完成的内容：</h3><ul>
+<li><input checked="" disabled="" type="checkbox"> 添加例外的参数，例如非必填的Edittext</li>
+</ul>
+
+      
+    </div>
+  </div>
+ 
+</article>
+
+</section>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 一个开发<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> | Theme by  <a href="https://github.com/FuShaoLei/hexo-theme-hiya" target="_blank">Hiya</a>
+      
+        <br>
+        <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+      <span id="busuanzi_container_site_uv">
+        访客数<span id="busuanzi_value_site_uv"></span>人次
+      </span>
+        
+      
+    </div>
+    
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/,home" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives,archive" class="mobile-nav-link">归档</a>
+  
+</nav>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script>
+    feather.replace()
+</script>
+
+<script src="/js/script.js"></script>
+
+
+  </div>
+</body>
+</html>

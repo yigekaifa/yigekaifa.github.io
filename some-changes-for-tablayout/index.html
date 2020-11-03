@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>TabLayout的简单修改 | 一个开发</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+ 
+  
+    <link rel="icon" href="/../logo.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="一个开发" type="application/atom+xml">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="header-outer" class="outer">
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">归档</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://yigekaifa.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-some-changes-for-tablayout" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="name">
+      TabLayout的简单修改
+    </h1>
+  
+
+        <div class="article-meta">
+          <a href="/some-changes-for-tablayout/" class="article-date">
+  <time datetime="2020-03-10T15:11:19.000Z" itemprop="datePublished">2020-03-10</time>
+</a>
+          
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Dev/">Dev</a>
+  </div>
+
+          
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TabLayout/" rel="tag">TabLayout</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/custom/" rel="tag">custom</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/widget/" rel="tag">widget</a></li></ul>
+
+        </div>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>设计稿上的tab布局我用了design库的tablayout，根据设计上的图来看，选中的tab要是粗体，下方横线等宽于字体。</p>
+<a id="more"></a>
+
+<h3 id="问题1：TabLayout无法控制当前选中的行的字体"><a href="#问题1：TabLayout无法控制当前选中的行的字体" class="headerlink" title="问题1：TabLayout无法控制当前选中的行的字体"></a>问题1：TabLayout无法控制当前选中的行的字体</h3><p>解决方案：<code>setCustomView()</code> 。</p>
+<p>首先写一个方法，用来返回每个tab的view：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> View <span class="title">getTabView</span><span class="params">(<span class="keyword">int</span> position, String title)</span> </span>&#123;</span><br><span class="line">    View view = LayoutInflater.from(getContext()).inflate(R.layout.tab_item, <span class="keyword">null</span>);</span><br><span class="line">    TextView txt_title = (TextView) view.findViewById(R.id.textView);</span><br><span class="line">    txt_title.setText(title);</span><br><span class="line">    <span class="keyword">return</span> view;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后把view设置到tablayout中：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">tabLayout.getTabAt(<span class="number">0</span>).setCustomView(getTabView(<span class="number">0</span>, <span class="string">&quot;全部&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<p>然后去选择控制tablayout的标签的样式，我是新建了一个OnTabSelectedListener，然后再里面进行设置的</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">OnTabSelectedListener onTabSelectedListener = <span class="keyword">new</span> TabLayout.OnTabSelectedListener() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onTabSelected</span><span class="params">(TabLayout.Tab tab)</span> </span>&#123;</span><br><span class="line">                <span class="comment">// 选中的tab设置为粗体</span></span><br><span class="line">                TextView textView = tabLayout.getTabAt(tab.getPosition()).getCustomView().findViewById(R.id.textView);</span><br><span class="line">                textView.setTypeface(<span class="keyword">null</span>, Typeface.BOLD);</span><br><span class="line">                viewPager.setCurrentItem(tab.getPosition());</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onTabUnselected</span><span class="params">(TabLayout.Tab tab)</span> </span>&#123;</span><br><span class="line">                <span class="comment">// 未选中的tab设置为正常</span></span><br><span class="line">                TextView textView = tabLayout.getTabAt(tab.getPosition()).getCustomView().findViewById(R.id.textView);</span><br><span class="line">                textView.setTypeface(<span class="keyword">null</span>, Typeface.NORMAL);</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onTabReselected</span><span class="params">(TabLayout.Tab tab)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br></pre></td></tr></table></figure>
+
+<p>但是，设置好之后出现了新的问题：</p>
+<h3 id="问题2：下面Indicator宽度始终为最宽的宽度"><a href="#问题2：下面Indicator宽度始终为最宽的宽度" class="headerlink" title="问题2：下面Indicator宽度始终为最宽的宽度"></a>问题2：下面<code>Indicator</code>宽度始终为最宽的宽度</h3><p>即使你设置了<code>app:tabIndicatorFullWidth=&quot;true&quot;</code>，因为<code>tabIndicatorFullWidth</code>是根据默认布局的文字宽度来设置的，我们自定义布局之后，系统无法获取到文字大小和长度，所以就会设置成最宽的宽度。</p>
+<p>我的解决方法：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reflex</span><span class="params">(<span class="keyword">final</span> TabLayout tabLayout)</span> </span>&#123;</span><br><span class="line">        tabLayout.post(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    LinearLayout mTabStrip = (LinearLayout) tabLayout.getChildAt(<span class="number">0</span>);</span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; mTabStrip.getChildCount(); i++) &#123;</span><br><span class="line">                        View tabView = mTabStrip.getChildAt(i);</span><br><span class="line"></span><br><span class="line">                        Field mTextViewField = tabView.getClass().getDeclaredField(<span class="string">&quot;textView&quot;</span>);</span><br><span class="line">                        mTextViewField.setAccessible(<span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">                        TextView mTextView = (TextView) mTextViewField.get(tabView);</span><br><span class="line"></span><br><span class="line">                        tabView.setPadding(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">                        <span class="keyword">int</span> width = <span class="number">0</span>;</span><br><span class="line">                        width = mTextView.getWidth();</span><br><span class="line">                        <span class="keyword">if</span> (width == <span class="number">0</span>) &#123;</span><br><span class="line">                            mTextView.measure(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">                            width = mTextView.getMeasuredWidth();</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tabView.getLayoutParams();</span><br><span class="line">                        params.width = width;</span><br><span class="line"></span><br><span class="line">                        WindowManager wm1 = ((Activity) getContext()).getWindowManager();</span><br><span class="line">                        <span class="keyword">int</span> width1 = wm1.getDefaultDisplay().getWidth();</span><br><span class="line">                        LogUtils.d(<span class="string">&quot;&quot;</span> + width1 / tabLayout.getTabCount() + <span class="string">&quot;=============&quot;</span> + mTextView.getText().length() * dip2px(tabLayout.getContext(), <span class="number">15</span>));</span><br><span class="line"></span><br><span class="line">                        params.leftMargin = (width1 / tabLayout.getTabCount() - mTextView.getText().length() * dip2px(tabLayout.getContext(), <span class="number">15</span>)) / <span class="number">2</span>;</span><br><span class="line">                        params.rightMargin = (width1 / tabLayout.getTabCount() - mTextView.getText().length() * dip2px(tabLayout.getContext(), <span class="number">15</span>)) / <span class="number">2</span>;</span><br><span class="line">                        tabView.setLayoutParams(params);</span><br><span class="line"></span><br><span class="line">                        tabView.invalidate();</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                &#125; <span class="keyword">catch</span> (NoSuchFieldException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IllegalAccessException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">dip2px</span><span class="params">(Context context, <span class="keyword">float</span> dpValue)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">float</span> scale = context.getResources().getDisplayMetrics().density;</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">int</span>) (dpValue * scale + <span class="number">0.5f</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>reflex(tabLayout);</code>调用在所有<code>getTabAt</code>方法之后即可解决这个，但是还有点小问题，tab大小被设置成了文字宽度…这个问题暂时保留，下次解决。另外有几个小问题</p>
+<ol>
+<li>去掉tab的水波纹效果，无论是support还是AdnroidX，都用<code>app:tabRippleColor=&quot;@android:color/transparent&quot;</code>，<code>app:tabBackground=&quot;@android:color/transparent&quot;</code>即使在support下也无效</li>
+</ol>
+
+      
+    </div>
+  </div>
+ 
+</article>
+
+</section>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 一个开发<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> | Theme by  <a href="https://github.com/FuShaoLei/hexo-theme-hiya" target="_blank">Hiya</a>
+      
+        <br>
+        <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+      <span id="busuanzi_container_site_uv">
+        访客数<span id="busuanzi_value_site_uv"></span>人次
+      </span>
+        
+      
+    </div>
+    
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/,home" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives,archive" class="mobile-nav-link">归档</a>
+  
+</nav>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script>
+    feather.replace()
+</script>
+
+<script src="/js/script.js"></script>
+
+
+  </div>
+</body>
+</html>
